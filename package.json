@@ -11,6 +11,7 @@
     "node": "10.x"
   },
   "scripts": {
+    "start": "NODE_ENV=local node ./index.js",
     "build": "tsc && yarn copy",
     "copy": "copyfiles -u 1 ./src/public/** ./src/assets/** ./dist/"
   },

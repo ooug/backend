@@ -4,6 +4,8 @@
         "copyfiles",
         "downlevel",
         "etag",
+        "gcloud",
+        "gcloudignore",
         "mahto",
         "middlewares",
         "ooug",

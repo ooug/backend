@@ -1,4 +1,4 @@
-import { config } from 'dotenv';
+
 import express, {
   Express,
   Request,
