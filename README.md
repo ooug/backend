@@ -1,2 +1,2 @@
-# backend
-ooug backend using next js
+# Backend
+ooug backend using typescript and express with mongodb
