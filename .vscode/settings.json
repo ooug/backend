@@ -13,5 +13,6 @@
         "sourcemap",
         "tslib",
         "typechecking"
-    ]
+    ],
+    "files.autoSave": "onFocusChange"
 }

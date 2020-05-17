@@ -7,13 +7,23 @@ import express, {
   json,
   urlencoded,
 } from 'express';
-import { default as cors } from 'cors';
 import { join } from 'path';
+import { config } from 'dotenv';
+import { default as cors } from 'cors';
 import { default as morgan } from 'morgan';
 import router from './routes';
 import { textContentTypeMiddleware } from './middlewares';
 
 export const $: Express = express();
+const PORT = process.env.PORT || 8080;
+
+// get config for local
+if (process.env.NODE_ENV !== 'local') {
+  const conf = config();
+  if (conf.error) throw new Error(conf.error.message);
+  else console.log(conf.parsed);
+}
+
 
 // middleware
 $.disable('etag');
@@ -28,6 +38,15 @@ $.use(serve(join(__dirname, 'public')));
 $.use(textContentTypeMiddleware);
 
 // routing
+$.get('/', async (req: Request, res: Response) => {
+  res.status(200).send({
+    status: true,
+    data: 'thank you sir',
+    path: req.path,
+    timestamp: Math.trunc(Date.now() / 1000),
+  });
+});
+
 $.all('/ping', async (req: Request, res: Response) => {
   res.status(200).send({
     status: true,
@@ -49,3 +68,10 @@ $.all('*', async (req: Request, res: Response) => {
     timestamp: Math.trunc(Date.now() / 1000),
   });
 });
+
+
+$.listen(PORT, () => {
+  console.log(`Server is listening on ${PORT}`);
+});
+
+export default $;
