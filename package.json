@@ -13,9 +13,11 @@
   "scripts": {
     "start": "node dist/index.js",
     "local": "cross-env NODE_ENV=local nodemon src/index.ts",
-    "build": "tsc && yarn copy",
+    "build": "yarn prebuild && tsc && yarn copy",
+    "prebuild": "rimraf ./dist",
     "copy": "copyfiles -u 1 ./src/public/** ./src/assets/** ./dist/",
-    "deploy": "yarn build && gcloud app deploy"
+    "gcp": "gcloud app deploy",
+    "deploy": "yarn build && yarn gcp"
   },
   "nodemonConfig": {
     "watch": "src/*",

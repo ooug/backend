@@ -1,18 +1,19 @@
 {
-    "cSpell.words": [
-        "ESNEXT",
-        "copyfiles",
-        "downlevel",
-        "etag",
-        "gcloud",
-        "gcloudignore",
-        "mahto",
-        "middlewares",
-        "ooug",
-        "santosh",
-        "sourcemap",
-        "tslib",
-        "typechecking"
-    ],
-    "files.autoSave": "onFocusChange"
+  "cSpell.words": [
+    "ESNEXT",
+    "copyfiles",
+    "downlevel",
+    "etag",
+    "gcloud",
+    "gcloudignore",
+    "mahto",
+    "middlewares",
+    "ooug",
+    "prebuild",
+    "santosh",
+    "sourcemap",
+    "tslib",
+    "typechecking"
+  ],
+  "files.autoSave": "onFocusChange"
 }
