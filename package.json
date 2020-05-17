@@ -19,6 +19,9 @@
   },
   "nodemonConfig": {
     "watch": "src/*",
+    "execMap": {
+      "ts": "ts-node"
+    },
     "delay": "500"
   },
   "dependencies": {
