@@ -60,12 +60,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.$ = void 0;
 var express_1 = __importStar(require("express"));
-var cors_1 = __importDefault(require("cors"));
 var path_1 = require("path");
+var cors_1 = __importDefault(require("cors"));
 var morgan_1 = __importDefault(require("morgan"));
 var routes_1 = __importDefault(require("./routes"));
 var middlewares_1 = require("./middlewares");
 exports.$ = express_1.default();
+var PORT = process.env.PORT || 8080;
 exports.$.disable('etag');
 exports.$.disable('x-powered-by');
 exports.$.use(cors_1.default());
@@ -74,6 +75,17 @@ exports.$.use(morgan_1.default('dev'));
 exports.$.use(express_1.urlencoded({ extended: false }));
 exports.$.use(express_1.static(path_1.join(__dirname, 'public')));
 exports.$.use(middlewares_1.textContentTypeMiddleware);
+exports.$.get('/', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        res.status(200).send({
+            status: true,
+            data: 'thank you sir',
+            path: req.path,
+            timestamp: Math.trunc(Date.now() / 1000),
+        });
+        return [2];
+    });
+}); });
 exports.$.all('/ping', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         res.status(200).send({
@@ -97,3 +109,6 @@ exports.$.all('*', function (req, res) { return __awaiter(void 0, void 0, void 0
         return [2];
     });
 }); });
+exports.$.listen(PORT, function () {
+    console.log("Server is listening on " + PORT);
+});

@@ -15,7 +15,7 @@
     "local": "cross-env NODE_ENV=local nodemon src/index.ts",
     "build": "tsc && yarn copy",
     "copy": "copyfiles -u 1 ./src/public/** ./src/assets/** ./dist/",
-    "deploy": "gcloud app deploy"
+    "deploy": "yarn build && gcloud app deploy"
   },
   "nodemonConfig": {
     "watch": "src/*",

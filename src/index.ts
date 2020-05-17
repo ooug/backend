@@ -18,11 +18,11 @@ export const $: Express = express();
 const PORT = process.env.PORT || 8080;
 
 // get config for local
-if (process.env.NODE_ENV !== 'local') {
-  const conf = config();
-  if (conf.error) throw new Error(conf.error.message);
-  else console.log(conf.parsed);
-}
+// if (process.env.NODE_ENV === 'local') {
+//   const conf = config();
+//   if (conf.error) throw new Error(conf.error.message);
+//   else console.log(conf.parsed);
+// }
 
 
 // middleware
@@ -73,5 +73,3 @@ $.all('*', async (req: Request, res: Response) => {
 $.listen(PORT, () => {
   console.log(`Server is listening on ${PORT}`);
 });
-
-export default $;
