@@ -1,4 +1,3 @@
-
 import express, {
   Express,
   Request,
@@ -17,13 +16,9 @@ import { textContentTypeMiddleware } from './middlewares';
 export const $: Express = express();
 const PORT = process.env.PORT || 8080;
 
-// get config for local
-// if (process.env.NODE_ENV === 'local') {
-  const conf = config();
-  if (conf.error) throw new Error(conf.error.message);
-  else console.log(conf.parsed);
-// }
-
+const conf = config();
+if (conf.error) throw new Error(conf.error.message);
+else console.log(conf.parsed);
 
 // middleware
 $.disable('etag');
@@ -42,6 +37,7 @@ $.get('/', async (req: Request, res: Response) => {
   res.status(200).send({
     status: true,
     data: 'thank you sir',
+    env: {team: process.env.TEAM, dev: process.env._DEV},
     path: req.path,
     timestamp: Math.trunc(Date.now() / 1000),
   });
@@ -68,7 +64,6 @@ $.all('*', async (req: Request, res: Response) => {
     timestamp: Math.trunc(Date.now() / 1000),
   });
 });
-
 
 $.listen(PORT, () => {
   console.log(`Server is listening on ${PORT}`);
