@@ -17,7 +17,9 @@
     "prebuild": "rimraf ./dist",
     "copy": "copyfiles -u 1 ./src/public/** ./src/assets/** ./dist/",
     "gcp": "gcloud app deploy",
-    "deploy": "yarn build && yarn gcp"
+    "deploy": "yarn build && yarn gcp",
+    "create-env": "printenv > .env"
+    
   },
   "nodemonConfig": {
     "watch": "src/*",

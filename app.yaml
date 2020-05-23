@@ -13,3 +13,13 @@
 #
 # [START runtime]
 runtime: nodejs10
+
+# scaling
+automatic_scaling:
+  target_cpu_utilization: 0.95
+  min_instances: 0
+  max_instances: 1
+
+# environment
+env_variables:
+  TEAM: "OOUG"

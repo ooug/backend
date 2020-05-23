@@ -1,0 +1,12 @@
+steps:
+- name: node:10.20.1
+  entrypoint: npm
+  args: ["install"]
+- name: node:10.20.1
+  entrypoint: npm
+  args: ["run", "create-env"]
+  env:
+    - 'MY_SECRET_KEY=${_MY_SECRET_KEY}'
+- name: "gcr.io/cloud-builders/gcloud"
+  args: ["app", "deploy"]
+timeout: "1600s"
