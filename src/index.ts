@@ -19,9 +19,9 @@ const PORT = process.env.PORT || 8080;
 
 // get config for local
 // if (process.env.NODE_ENV === 'local') {
-//   const conf = config();
-//   if (conf.error) throw new Error(conf.error.message);
-//   else console.log(conf.parsed);
+  const conf = config();
+  if (conf.error) throw new Error(conf.error.message);
+  else console.log(conf.parsed);
 // }
 
 
