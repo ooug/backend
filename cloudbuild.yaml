@@ -4,6 +4,9 @@ steps:
   args: ["install"]
 - name: node:10.20.1
   entrypoint: npm
+  args: ["build"]
+- name: node:10.20.1
+  entrypoint: npm
   args: ["run", "create-env"]
   env:
     - '_DEV=${_MY_SECRET_KEY}'
