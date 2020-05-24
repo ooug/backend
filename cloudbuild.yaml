@@ -1,11 +1,11 @@
 steps:
-  - name: Installing dependencies
+  - name: 10.x # Installing dependencies
     entrypoint: npm
     args: ['install']
-  - name: Running build
+  - name: 10.x # Running build
     entrypoint: npm
     args: ['run', 'build']
-  - name: Creating local .env file
+  - name: 10.x # Creating local .env file
     entrypoint: npm
     args: ['run', 'create-env']
     env:
@@ -17,6 +17,6 @@ steps:
       - '_EMAIL_PORT=${_EMAIL_PORT}'
       - '_EMAIL_USER=${_EMAIL_USER}'
       - '_EMAIL_PASSWORD=${_EMAIL_PASSWORD}'
-  - name: 'gcr.io/cloud-builders/gcloud'
+  - name: 'gcr.io/cloud-builders/gcloud' # deploying the app
     args: ['app', 'deploy']
 timeout: '1600s'
