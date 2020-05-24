@@ -1,11 +1,11 @@
 steps:
-  - name: 10.x # Installing dependencies
+  - name: 10.x.x # Installing dependencies
     entrypoint: npm
     args: ['install']
-  - name: 10.x # Running build
+  - name: 10.x.x # Running build
     entrypoint: npm
     args: ['run', 'build']
-  - name: 10.x # Creating local .env file
+  - name: 10.x.x # Creating local .env file
     entrypoint: npm
     args: ['run', 'create-env']
     env:
