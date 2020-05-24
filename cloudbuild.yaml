@@ -1,13 +1,13 @@
 steps:
-  - name: 10.x.x # Installing dependencies
-    entrypoint: npm
+  - name: node:10 # Installing dependencies
+    entrypoint: yarn
     args: ['install']
-  - name: 10.x.x # Running build
-    entrypoint: npm
-    args: ['run', 'build']
-  - name: 10.x.x # Creating local .env file
-    entrypoint: npm
-    args: ['run', 'create-env']
+  - name: node:10 # Running build
+    entrypoint: yarn
+    args: ['build']
+  - name: node:10 # Creating local .env file
+    entrypoint: yarn
+    args: ['create-env']
     env:
       - '_DB_HOST=${_DB_HOST}'
       - '_DB_PORT=${_DB_PORT}'
