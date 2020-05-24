@@ -1,15 +1,22 @@
 steps:
-  - name: node:10.20.1
+  - name: Installing dependencies
     entrypoint: npm
     args: ['install']
-  - name: node:10.20.1
+  - name: Running build
     entrypoint: npm
     args: ['run', 'build']
-  - name: node:10.20.1
+  - name: Creating local .env file
     entrypoint: npm
     args: ['run', 'create-env']
     env:
-      - '_DEV=${_DEV}'
+      - '_DB_HOST=${_DB_HOST}'
+      - '_DB_PORT=${_DB_PORT}'
+      - '_DB_USER=${_DB_USER}'
+      - '_DB_PASSWORD=${_DB_PASSWORD}'
+      - '_EMAIL_HOST=${_EMAIL_HOST}'
+      - '_EMAIL_PORT=${_EMAIL_PORT}'
+      - '_EMAIL_USER=${_EMAIL_USER}'
+      - '_EMAIL_PASSWORD=${_EMAIL_PASSWORD}'
   - name: 'gcr.io/cloud-builders/gcloud'
     args: ['app', 'deploy']
 timeout: '1600s'

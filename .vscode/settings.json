@@ -13,6 +13,7 @@
     "prebuild",
     "printenv",
     "santosh",
+    "smtp",
     "sourcemap",
     "tslib",
     "typechecking"
