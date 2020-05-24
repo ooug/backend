@@ -12,6 +12,7 @@ import { default as cors } from 'cors';
 import { default as morgan } from 'morgan';
 import router from './routes';
 import { textContentTypeMiddleware } from './middlewares';
+import { default as mongoose } from 'mongoose';
 
 export const $: Express = express();
 const PORT = process.env.PORT || 8080;
@@ -32,12 +33,34 @@ $.use(serve(join(__dirname, 'public')));
 // custom middleware
 $.use(textContentTypeMiddleware);
 
+// db connection
+mongoose
+  .connect(
+    'mongodb://' +
+      process.env._DB_USER +
+      ':' +
+      process.env._DB_PASSWORD +
+      '@' +
+      process.env._DB_HOST +
+      ':' +
+      process.env._DB_PORT +
+      '/ooug',
+    { useNewUrlParser: true, useUnifiedTopology: true }
+  )
+  .then(() => {
+    console.log('DB Connected!');
+  })
+  .catch((err) => {
+    console.log('DB Error!');
+    console.log(err)
+  });
+
 // routing
 $.get('/', async (req: Request, res: Response) => {
   res.status(200).send({
     status: true,
     data: 'thank you sir',
-    env: {team: process.env.TEAM, dev: process.env._DEV},
+    env: { team: process.env.TEAM, dev: process.env._DEV },
     path: req.path,
     timestamp: Math.trunc(Date.now() / 1000),
   });
