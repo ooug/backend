@@ -50,7 +50,7 @@ mongoose
   .then(() => {
     console.log('DB Connected!');
   })
-  .catch((err) => {
+  .catch((err: any) => {
     console.log('DB Error!');
     console.log(err)
   });
@@ -60,7 +60,6 @@ $.get('/', async (req: Request, res: Response) => {
   res.status(200).send({
     status: true,
     data: 'thank you sir',
-    env: { team: process.env.TEAM, dev: process.env._DEV },
     path: req.path,
     timestamp: Math.trunc(Date.now() / 1000),
   });
