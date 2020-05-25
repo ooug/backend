@@ -9,5 +9,16 @@ const contactUsSchema = new mongoose.Schema({
   timeStamp: { type: String, required: true },
 });
 
+// creating newsletter schema
+const newsletterSchema = new mongoose.Schema({
+  email: {
+    type: String,
+    required: true,
+  },
+});
+
 // exporting contactUsModel
-export default mongoose.model('contactUs', contactUsSchema);
+export const contactUsModel = mongoose.model('contactUs', contactUsSchema);
+
+// exporting newsletterModel
+export const newsletterModel = mongoose.model('newsletter', newsletterSchema);
