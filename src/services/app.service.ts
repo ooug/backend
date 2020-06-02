@@ -46,6 +46,7 @@ export const newsletterSubscribe = async (req: Request, res: Response) => {
       // not subscribed. adding to newsletter collection
       const newSubscriber = new newsletterModel({
         email: req.body.email,
+        timeStamp: Math.trunc(Date.now() / 1000),
       });
       newSubscriber
         .save()
