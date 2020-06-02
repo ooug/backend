@@ -19,7 +19,6 @@
     "gcp": "gcloud app deploy",
     "deploy": "yarn build && yarn gcp",
     "create-env": "printenv > .env"
-    
   },
   "nodemonConfig": {
     "watch": "src/*",
@@ -33,9 +32,11 @@
     "dotenv": "^8.2.0",
     "ejs": "^3.1.2",
     "express": "^4.17.1",
+    "mongoose": "^5.9.15",
     "morgan": "^1.10.0"
   },
   "devDependencies": {
+    "@types/mongoose": "^5.7.21",
     "@types/cors": "^2.8.6",
     "@types/dotenv": "^8.2.0",
     "@types/ejs": "^3.0.3",
