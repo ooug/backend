@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { upcomingEventModel } from '../models/upcomingEvent';
 
+// add upcoming event
 export const addUpcomingEvent = (req: Request, res: Response) => {
   let newEvent = new upcomingEventModel(req.body);
   newEvent
@@ -23,9 +24,11 @@ export const addUpcomingEvent = (req: Request, res: Response) => {
     });
 };
 
+// get all upcoming event
 export const getAllUpcomingEvent = (req: Request, res: Response) => {
   upcomingEventModel
     .find()
+    .select('-Registrations')
     .then((events) => {
       res.send({
         status: true,
@@ -44,9 +47,11 @@ export const getAllUpcomingEvent = (req: Request, res: Response) => {
     });
 };
 
+// get one upcoming event
 export const getOneUpcomingEvent = (req: Request, res: Response) => {
   upcomingEventModel
     .findById(req.body.id)
+    .select('-Registrations')
     .then((event) => {
       if (event) {
         res.send({
@@ -74,6 +79,7 @@ export const getOneUpcomingEvent = (req: Request, res: Response) => {
     });
 };
 
+// delete one upcoming event
 export const deleteOneUpcomingEvent = (req: Request, res: Response) => {
   upcomingEventModel
     .findByIdAndDelete(req.body.id)
@@ -92,6 +98,75 @@ export const deleteOneUpcomingEvent = (req: Request, res: Response) => {
           path: req.path,
           timestamp: Math.trunc(Date.now() / 1000),
         });
+      }
+    })
+    .catch(() => {
+      res.send({
+        status: false,
+        data: 'EVENT_NOT_FOUND',
+        path: req.path,
+        timestamp: Math.trunc(Date.now() / 1000),
+      });
+    });
+};
+
+// register for an event
+export const registerForEvent = (req: Request, res: Response) => {
+  upcomingEventModel
+    .findById(req.body.id)
+    .then((event: any) => {
+      // checking if not valid event
+      // if not valid sending error else proceeding further
+      if (event === null) {
+        res.send({
+          status: false,
+          data: 'EVENT_NOT_FOUND',
+          path: req.path,
+          timestamp: Math.trunc(Date.now() / 1000),
+        });
+      } else {
+        // checking if email registered
+        const user = event.Registrations.find((e: any) => {
+          return e.email === req.body.email;
+        });
+
+        // if found then return registered msg else add to registrations array
+        if (user) {
+          res.send({
+            status: false,
+            data: 'EMAIL_REGISTERED',
+            path: req.path,
+            timestamp: Math.trunc(Date.now() / 1000),
+          });
+        } else {
+          // adding to registrations array
+          event.Registrations.push({
+            name: req.body.name,
+            roll: req.body.roll,
+            email: req.body.email,
+            mobile: req.body.mobile,
+          });
+
+          // saving
+          event
+            .save()
+            .then(() => {
+              res.send({
+                status: true,
+                data: 'REGISTERED_FOR_EVENT',
+                path: req.path,
+                timestamp: Math.trunc(Date.now() / 1000),
+              });
+            })
+            .catch((err: any) => {
+              res.send({
+                status: false,
+                data: 'SOMETHING_WENT_WRONG',
+                path: req.path,
+                timestamp: Math.trunc(Date.now() / 1000),
+              });
+            });
+        }
       }
     })
     .catch(() => {

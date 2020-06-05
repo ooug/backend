@@ -17,8 +17,18 @@ const upcomingEventSchema = new mongoose.Schema({
   },
   time: { type: String, required: true },
   venue: { type: String, required: true },
+  Registrations: [
+    {
+      name: { type: String, required: true },
+      roll: { type: String, required: true },
+      email: { type: String, required: true },
+      mobile: { type: String, required: true },
+    },
+  ],
 });
 
-
 // exporting upcoming event model
-export const upcomingEventModel = mongoose.model('upcomingEvent',upcomingEventSchema);
+export const upcomingEventModel = mongoose.model(
+  'upcomingEvent',
+  upcomingEventSchema
+);
