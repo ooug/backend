@@ -178,3 +178,42 @@ export const registerForEvent = (req: Request, res: Response) => {
       });
     });
 };
+
+// get all registrations for an event
+export const getRegistrationsOfEvent = (req: Request, res: Response) => {
+  upcomingEventModel
+    .findById(req.body.id)
+    .then((event:any) => {
+      if (!event) {
+        return res.send({
+          status: false,
+          data: 'EVENT_NOT_FOUND',
+          path: req.path,
+          timestamp: Math.trunc(Date.now() / 1000),
+        });
+      }
+      if(event.Registrations.length===0){
+        res.send({
+          status: false,
+          data: 'NO_REGISTRATIONS_FOUND',
+          path: req.path,
+          timestamp: Math.trunc(Date.now() / 1000),
+        });
+      }else{
+        res.send({
+          status: true,
+          data: event.Registrations,
+          path: req.path,
+          timestamp: Math.trunc(Date.now() / 1000),
+        });
+      }
+    })
+    .catch(() => {
+      res.send({
+        status: false,
+        data: 'EVENT_NOT_FOUND',
+        path: req.path,
+        timestamp: Math.trunc(Date.now() / 1000),
+      });
+    });
+};
