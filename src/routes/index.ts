@@ -1,5 +1,6 @@
 import { Router, RouterOptions } from 'express';
 import { accountService } from '../services';
+import { default as activitiesRoutes } from './activities/activities';
 
 const options = {
   strict: true,
@@ -10,6 +11,6 @@ const options = {
 const $ = Router(options);
 
 $.get(`/user`, accountService.user);
-
+$.use('/', activitiesRoutes);
 
 export default $;

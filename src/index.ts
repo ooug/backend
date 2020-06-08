@@ -12,6 +12,7 @@ import { default as cors } from 'cors';
 import { default as morgan } from 'morgan';
 import router from './routes';
 import { textContentTypeMiddleware } from './middlewares';
+import { default as mongoose } from 'mongoose';
 
 export const $: Express = express();
 const PORT = process.env.PORT || 8080;
@@ -19,6 +20,20 @@ const PORT = process.env.PORT || 8080;
 const conf = config();
 if (conf.error) throw new Error(conf.error.message);
 else console.log(conf.parsed);
+
+
+
+mongoose
+  .connect(
+    'mongodb://127.0.0.1:27017/ooug',
+    { useNewUrlParser: true, useUnifiedTopology: true }
+  )
+  .then(() => {
+    console.log('DB Connected!');
+  })
+  .catch((err: any) => {
+    console.log('connection error : ' + err);
+  });
 
 // middleware
 $.disable('etag');
