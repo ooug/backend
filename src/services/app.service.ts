@@ -70,3 +70,41 @@ export const newsletterSubscribe = async (req: Request, res: Response) => {
     }
   });
 };
+
+// newsletter unsubscribe
+export const newsletterUnsubscribe = async (req: Request, res: Response) =>{
+    // checking if already subscribed
+    newsletterModel.findOne({ email: req.body.email }).then((doc) => {
+      if (doc) {
+        // delete subscribed
+        newsletterModel.findOneAndDelete({email: req.body.email})
+        .then(() => {
+          res.status(200).send({
+            status: true,
+            data: 'NEWSLETTER_UNSUBSCRIBED',
+            path: req.path,
+            timestamp: Math.trunc(Date.now() / 1000),
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          res.status(200).send({
+            status: false,
+            data: 'ERROR_OCCURRED',
+            path: req.path,
+            timestamp: Math.trunc(Date.now() / 1000),
+          });
+        });
+      } else
+      {
+        //if not subscribed
+        res.status(200).send({
+          status: false,
+          data: 'EMAIL_IS_NOT_SUBSCRIBED',
+          path: req.path,
+          timestamp: Math.trunc(Date.now() / 1000),
+        });
+      };
+    })
+
+};

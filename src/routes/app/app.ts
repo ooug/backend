@@ -15,4 +15,6 @@ $.post('/contact-us', appService.contactUs);
 // subscribe newsletter
 $.post('/newsletter-subscribe', appService.newsletterSubscribe);
 
+// unsubscribe newsletter
+$.delete('/newsletter-unsubscribe', appService.newsletterUnsubscribe)
 export default $;
