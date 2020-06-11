@@ -1,6 +1,7 @@
 import { Router, RouterOptions } from 'express';
 import { accountService } from '../services';
 import { default as appRoutes } from './app/app';
+import { default as upcomingEventRoutes } from './upcomingEvent/upcomingEvent';
 
 const options = {
   strict: true,
@@ -10,8 +11,15 @@ const options = {
 
 const $ = Router(options);
 
-$.get(`/user`, accountService.user);
+$.get('/user', accountService.user);
 
-$.use('/about', appRoutes);
+/*
+ * appRoutes contain routes for contact-us forms
+ * and subscribe for newsletter
+ */
+$.use('/app', appRoutes);
+
+// upcomingEvents routes
+$.use('/upcoming-event',upcomingEventRoutes);
 
 export default $;
