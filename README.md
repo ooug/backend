@@ -19,6 +19,10 @@ typescript version 3.9
 
 ```
 
+# Environment
+
+- copy .env.example file and paste as .env file update the config required.
+
 # API HOST
 
 - Development API:- `https://ooug-dev-1fbf3.el.r.appspot.com` [visit](https://ooug-dev-1fbf3.el.r.appspot.com)
