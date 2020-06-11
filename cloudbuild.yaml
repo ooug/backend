@@ -9,10 +9,7 @@ steps:
     entrypoint: yarn
     args: ['create-env']
     env:
-      - '_DB_HOST=${_DB_HOST}'
-      - '_DB_PORT=${_DB_PORT}'
-      - '_DB_USER=${_DB_USER}'
-      - '_DB_PASSWORD=${_DB_PASSWORD}'
+      - '_DB_URL=${_DB_URL}'
       - '_EMAIL_HOST=${_EMAIL_HOST}'
       - '_EMAIL_PORT=${_EMAIL_PORT}'
       - '_EMAIL_USER=${_EMAIL_USER}'
