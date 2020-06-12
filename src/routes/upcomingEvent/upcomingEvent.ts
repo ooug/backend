@@ -16,7 +16,7 @@ $.post('/create', upcomingEventService.addUpcomingEvent);
 $.get('/get-all', upcomingEventService.getAllUpcomingEvent);
 
 // get one upcoming event
-$.get('/get-one', upcomingEventService.getOneUpcomingEvent);
+$.get('/get-one/:id', upcomingEventService.getOneUpcomingEvent);
 
 // delete one upcoming event
 $.delete('/delete-one', upcomingEventService.deleteOneUpcomingEvent);
@@ -25,6 +25,6 @@ $.delete('/delete-one', upcomingEventService.deleteOneUpcomingEvent);
 $.post('/register', upcomingEventService.registerForEvent);
 
 // get registration for en event
-$.get('/registrations',upcomingEventService.getRegistrationsOfEvent);
+$.get('/registrations/:id',upcomingEventService.getRegistrationsOfEvent);
 
 export default $;
