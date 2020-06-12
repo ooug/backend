@@ -21,13 +21,8 @@ const conf = config();
 if (conf.error) throw new Error(conf.error.message);
 else console.log(conf.parsed);
 
-
-
 mongoose
-  .connect(
-    'mongodb://127.0.0.1:27017/ooug',
-    { useNewUrlParser: true, useUnifiedTopology: true }
-  )
+  .connect('mongodb://127.0.0.1:27017/ooug', { useNewUrlParser: true, useUnifiedTopology: true } )
   .then(() => {
     console.log('DB Connected!');
   })
