@@ -50,7 +50,7 @@ export const getAllUpcomingEvent = (req: Request, res: Response) => {
 // get one upcoming event
 export const getOneUpcomingEvent = (req: Request, res: Response) => {
   upcomingEventModel
-    .findById(req.body.id)
+    .findById(req.params.id)
     .select('-Registrations')
     .then((event) => {
       if (event) {
@@ -182,7 +182,7 @@ export const registerForEvent = (req: Request, res: Response) => {
 // get all registrations for an event
 export const getRegistrationsOfEvent = (req: Request, res: Response) => {
   upcomingEventModel
-    .findById(req.body.id)
+    .findById(req.params.id)
     .then((event:any) => {
       if (!event) {
         return res.send({
