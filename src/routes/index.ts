@@ -2,6 +2,8 @@ import { Router, RouterOptions } from 'express';
 import { accountService } from '../services';
 import { default as appRoutes } from './app/app';
 import { default as upcomingEventRoutes } from './upcomingEvent/upcomingEvent';
+import { default as authRoutes } from './auth/auth';
+
 
 const options = {
   strict: true,
@@ -21,5 +23,9 @@ $.use('/app', appRoutes);
 
 // upcomingEvents routes
 $.use('/upcoming-event',upcomingEventRoutes);
+
+
+// authorization routes
+$.use('/auth',authRoutes);
 
 export default $;

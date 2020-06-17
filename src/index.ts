@@ -13,6 +13,9 @@ import { default as morgan } from 'morgan';
 import router from './routes';
 import { textContentTypeMiddleware } from './middlewares';
 import { connect } from 'mongoose';
+import { default as passport } from 'passport';
+
+import './middlewares/passport-config';
 
 const conf = config();
 if (conf.error) throw new Error(conf.error.message);
@@ -30,6 +33,7 @@ export const bootstrap = async function () {
   $.use(morgan('dev'));
   $.use(urlencoded({ extended: false }));
   $.use(serve(join(__dirname, 'public')));
+  $.use(passport.initialize());
 
   // custom middleware
   $.use(textContentTypeMiddleware);
