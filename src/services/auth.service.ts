@@ -3,6 +3,8 @@ import { userModel as User } from '../models/user';
 import { default as passport } from 'passport';
 import { default as jwt } from 'jsonwebtoken';
 
+
+// signing up
 export const signup = (req: Request, res: Response) => {
   const user = new User(req.body);
   user
@@ -26,28 +28,50 @@ export const signup = (req: Request, res: Response) => {
     });
 };
 
+
+// logging in
 export const login = (req: Request, res: Response) => {
-  passport.authenticate('local',{session:false},(err,user,info)=>{
-    if(err){
+  passport.authenticate('local', { session: false }, (err, user, info) => {
+    // if any err found
+    if (err) {
       return res.status(500).send({
         status: false,
         data: 'ERROR_OCCURRED',
         error: err,
         path: req.path,
         timestamp: Math.trunc(Date.now() / 1000),
-      })
+      });
     }
 
-    if(!user){
+    // if user not found
+    if (!user) {
       return res.status(500).send({
         status: false,
         data: info.message,
         path: req.path,
         timestamp: Math.trunc(Date.now() / 1000),
-      })
+      });
     }
-    else{
-      return res.status(200).send(user);
-    }
-  })(req,res);
+
+    // if user found generate jwt
+    const payload = {
+      name: user.name,
+      email: user.email,
+      sub: user._id
+    };
+
+    const options = {
+      expiresIn: 900,
+    };
+    jwt.sign(payload, 'ooug2011', options, (err, token) => {
+      res.status(200).send({
+        status: true,
+        token: token,
+        User: {
+          name: user.name,
+          email: user.email,
+        },
+      });
+    });
+  })(req, res);
 };
