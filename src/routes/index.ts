@@ -2,6 +2,8 @@ import { Router, RouterOptions } from 'express';
 import { accountService } from '../services';
 import { default as appRoutes } from './app/app';
 import { default as upcomingEventRoutes } from './upcomingEvent/upcomingEvent';
+import { default as authRoutes } from './auth/auth';
+import passport from 'passport';
 
 const options = {
   strict: true,
@@ -20,6 +22,18 @@ $.get('/user', accountService.user);
 $.use('/app', appRoutes);
 
 // upcomingEvents routes
-$.use('/upcoming-event',upcomingEventRoutes);
+$.use('/upcoming-event', upcomingEventRoutes);
+
+// authorization routes
+$.use('/auth', authRoutes);
+
+// test route for passport
+$.get(
+  '/passport-test',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    res.send('Accessed');
+  }
+);
 
 export default $;
