@@ -2,8 +2,7 @@ import { Request, Response } from 'express';
 import { userModel as User } from '../models/user';
 import { default as passport } from 'passport';
 import { default as jwt } from 'jsonwebtoken';
-import { generateOTP } from '../utils/generateOTP';
-import { sendMail } from '../utils/mailer';
+import { sendOTP } from '../utils/sendOTP';
 
 // signing up
 export const signup = (req: Request, res: Response) => {
@@ -77,28 +76,16 @@ export const login = (req: Request, res: Response) => {
 };
 
 // send OTP
-export const sendOTP = (req: Request, res: Response) => {
-  generateOTP()
+export const sendOtp = (req: Request, res: Response) => {
+  sendOTP(req.body.email)
     .then((otp) => {
-      sendMail(req.body.email, 'OOUG: Reset Password!', 'Your OTP is: ' + otp)
-        .then((data) => {
-          res.send({
-            status: true,
-            message: 'OTP_SENT',
-            otp: otp,
-            path: req.path,
-            timestamp: Math.trunc(Date.now() / 1000),
-          });
-        })
-        .catch((err) => {
-          res.send({
-            status: false,
-            message: 'ERROR_OCCURRED',
-            error: err,
-            path: req.path,
-            timestamp: Math.trunc(Date.now() / 1000),
-          });
-        });
+      res.send({
+        status: true,
+        message: 'EMAIL_SENT',
+        otp: otp,
+        path: req.path,
+        timestamp: Math.trunc(Date.now() / 1000),
+      });
     })
     .catch((err) => {
       res.send({
