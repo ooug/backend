@@ -77,15 +77,35 @@ export const login = (req: Request, res: Response) => {
 
 // send OTP
 export const sendOtp = (req: Request, res: Response) => {
-  sendOTP(req.body.email)
-    .then((otp) => {
-      res.send({
-        status: true,
-        message: 'EMAIL_SENT',
-        otp: otp,
-        path: req.path,
-        timestamp: Math.trunc(Date.now() / 1000),
-      });
+  User.findOne({ email: req.body.email })
+    .then((user) => {
+      if (!user) {
+        return res.send({
+          status: false,
+          message: 'EMAIL_NOT_REGISTERED',
+          path: req.path,
+          timestamp: Math.trunc(Date.now() / 1000),
+        });
+      }
+      sendOTP(req.body.email)
+        .then((otp) => {
+          res.send({
+            status: true,
+            message: 'EMAIL_SENT',
+            otp: otp,
+            path: req.path,
+            timestamp: Math.trunc(Date.now() / 1000),
+          });
+        })
+        .catch((err) => {
+          res.send({
+            status: false,
+            message: 'ERROR_OCCURRED',
+            error: err,
+            path: req.path,
+            timestamp: Math.trunc(Date.now() / 1000),
+          });
+        });
     })
     .catch((err) => {
       res.send({
