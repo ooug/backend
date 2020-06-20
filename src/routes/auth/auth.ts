@@ -13,4 +13,6 @@ $.post('/signup', authService.signup);
 
 $.post('/login',authService.login);
 
+$.post('/send-otp',authService.sendOTP);
+
 export default $;

@@ -2,7 +2,8 @@ import { Request, Response } from 'express';
 import { userModel as User } from '../models/user';
 import { default as passport } from 'passport';
 import { default as jwt } from 'jsonwebtoken';
-
+import { generateOTP } from '../utils/generateOTP';
+import { sendMail } from '../utils/mailer';
 
 // signing up
 export const signup = (req: Request, res: Response) => {
@@ -27,7 +28,6 @@ export const signup = (req: Request, res: Response) => {
       });
     });
 };
-
 
 // logging in
 export const login = (req: Request, res: Response) => {
@@ -57,7 +57,7 @@ export const login = (req: Request, res: Response) => {
     const payload = {
       name: user.name,
       email: user.email,
-      sub: user._id
+      sub: user._id,
     };
 
     const options = {
@@ -74,4 +74,39 @@ export const login = (req: Request, res: Response) => {
       });
     });
   })(req, res);
+};
+
+// send OTP
+export const sendOTP = (req: Request, res: Response) => {
+  generateOTP()
+    .then((otp) => {
+      sendMail(req.body.email, 'OOUG: Reset Password!', 'Your OTP is: ' + otp)
+        .then((data) => {
+          res.send({
+            status: true,
+            message: 'OTP_SENT',
+            otp: otp,
+            path: req.path,
+            timestamp: Math.trunc(Date.now() / 1000),
+          });
+        })
+        .catch((err) => {
+          res.send({
+            status: false,
+            message: 'ERROR_OCCURRED',
+            error: err,
+            path: req.path,
+            timestamp: Math.trunc(Date.now() / 1000),
+          });
+        });
+    })
+    .catch((err) => {
+      res.send({
+        status: false,
+        message: 'ERROR_OCCURRED',
+        error: err,
+        path: req.path,
+        timestamp: Math.trunc(Date.now() / 1000),
+      });
+    });
 };
