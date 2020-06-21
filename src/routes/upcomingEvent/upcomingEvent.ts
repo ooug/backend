@@ -24,7 +24,7 @@ $.delete('/delete-one', upcomingEventService.deleteOneUpcomingEvent);
 // register for an event
 $.post('/register', upcomingEventService.registerForEvent);
 
-// get registration for en event
+// get registration for an event
 $.get('/registrations/:id',upcomingEventService.getRegistrationsOfEvent);
 
 export default $;

@@ -3,9 +3,9 @@ import { default as mongoose } from 'mongoose';
 const blogSchema = new mongoose.Schema({
   title: { type: String, required: true },
   Date: {
-    day: { type: String, required: true },
-    month: { type: String, required: true },
-    year: { type: String, required: true },
+    day: { type: String },
+    month: { type: String },
+    year: { type: String },
   },
   Author :{
     name:{ type: String, required: true },
@@ -13,15 +13,15 @@ const blogSchema = new mongoose.Schema({
     company :{ type: String, required: true },
     Image: {
       host: { type: String },
-      path: { type: String, required: true },
+      path: { type: String },
     }
   },
   paragraph : { type: String, required: true },
-  link : { type: String, required: true },
+  link : { type: String },
   category : { type: String, required: true },
-  like : { type: Number, required: true },
-  view : { type: Number, required: true }
+  like : { type: Number },
+  view : { type: Number }
 
 });
 
-export const blogModel = mongoose.model('user',blogSchema);
+export const blogModel = mongoose.model('blog',blogSchema);
