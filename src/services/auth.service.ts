@@ -3,9 +3,10 @@ import { userModel as User } from '../models/user';
 import { default as passport } from 'passport';
 import { default as jwt } from 'jsonwebtoken';
 import { sendOTP } from '../utils/sendOTP';
+import { sendMail } from '../utils/mailer';
 
 // signing up
-export const signup = (req: Request, res: Response) => {
+export const signup = async (req: Request, res: Response) => {
   const user = new User(req.body);
   user
     .save()
@@ -29,7 +30,7 @@ export const signup = (req: Request, res: Response) => {
 };
 
 // logging in
-export const login = (req: Request, res: Response) => {
+export const login = async (req: Request, res: Response) => {
   passport.authenticate('local', { session: false }, (err, user, info) => {
     // if any err found
     if (err) {
@@ -75,8 +76,8 @@ export const login = (req: Request, res: Response) => {
   })(req, res);
 };
 
-// send OTP
-export const sendOtp = (req: Request, res: Response) => {
+// send OTP to reset password
+export const sendOtp = async (req: Request, res: Response) => {
   User.findOne({ email: req.body.email })
     .then((user) => {
       if (!user) {
@@ -116,4 +117,45 @@ export const sendOtp = (req: Request, res: Response) => {
         timestamp: Math.trunc(Date.now() / 1000),
       });
     });
+};
+
+// reset password based on email
+export const resetPassword = async (req: Request, res: Response) => {
+  User.findOne({ email: req.body.email }).then((user: any) => {
+    if (!user) {
+      return res.send({
+        status: false,
+        message: 'EMAIL_NOT_REGISTERED',
+        path: req.path,
+        timestamp: Math.trunc(Date.now() / 1000),
+      });
+    }
+    user.password = req.body.newPassword;
+    user.save().then(() => {
+      sendMail(
+        req.body.email,
+        'Password successfully changed!',
+        '',
+        'Your password has been successfully changed.<br><br>If it was not you, contact to admin.'
+      )
+        .then((data) => {
+          return res.send({
+            status: true,
+            message: 'PASSWORD_UPDATED',
+            mailSent: true,
+            path: req.path,
+            timestamp: Math.trunc(Date.now() / 1000),
+          });
+        })
+        .catch((err) => {
+          return res.send({
+            status: true,
+            message: 'PASSWORD_UPDATED',
+            mailSent: false,
+            path: req.path,
+            timestamp: Math.trunc(Date.now() / 1000),
+          });
+        });
+    });
+  });
 };
