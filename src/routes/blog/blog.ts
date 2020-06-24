@@ -24,15 +24,8 @@ $.patch('/update-one', blogService.UpdateBlog);
 //delete a blog 
 $.delete('/delete-one', blogService.DeleteBlog)
 
-
-
-
-
-
-
-
-
-
+//viwe count
+$.post('/view-count',blogService.CountViewsInBlog)
 
 
 export default $;
