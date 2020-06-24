@@ -12,7 +12,7 @@ import { default as cors } from 'cors';
 import { default as morgan } from 'morgan';
 import router from './routes';
 import { textContentTypeMiddleware } from './middlewares';
-import { connect } from 'mongoose';
+import { default as mongoose } from 'mongoose';
 import { default as passport } from 'passport';
 
 import './middlewares/passport-config';
@@ -78,7 +78,7 @@ export const bootstrap = async function () {
 };
 
 // db connection.connect(
-connect(process.env._DB_URL as any, {
+mongoose.connect(process.env._DB_URL as any, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })

@@ -3,6 +3,7 @@ import { accountService } from '../services';
 import { default as appRoutes } from './app/app';
 import { default as upcomingEventRoutes } from './upcomingEvent/upcomingEvent';
 import { default as authRoutes } from './auth/auth';
+import { default as galleryRoute } from './gallery/gallery'
 import passport from 'passport';
 
 const options = {
@@ -23,6 +24,11 @@ $.use('/app', appRoutes);
 
 // upcomingEvents routes
 $.use('/upcoming-event', upcomingEventRoutes);
+
+// gallery routes
+$.use('/gallery',galleryRoute);
+
+
 
 // authorization routes
 $.use('/auth', authRoutes);

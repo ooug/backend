@@ -7,7 +7,7 @@ import { error } from "../utils";
 
 const storage = new  Storage({
     projectId: "fir-gallery-231f2",
-    keyFilename: path.join(__dirname , "./assets/gallery/fir-gallery-231f2.json")
+    keyFilename: path.join(__dirname , "../assets/gallery/fir-gallery-231f2.json")
   });
 
 
