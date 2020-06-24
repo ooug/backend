@@ -19,7 +19,6 @@ const $ = Router(options);
 $.get(`/user`, accountService.user);
 $.use('/', activitiesRoutes);
 $.post('/', activitiesRoutes)
-export default $;
 $.get('/user', accountService.user);
 
 /*
