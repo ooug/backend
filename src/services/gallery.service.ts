@@ -23,13 +23,12 @@ const storage = new  Storage({
    * Adding new file to the storage
    */
   export const galleryImageUpload= async  ( req:Request, res:Response ) => {
-      JSON.stringify(req.body)
+    JSON.stringify(req.body)
     console.log('Upload Image');
     const image = req.file;
     const eventName = req.body.eventName;
     const description = req.body.description;
   
-    
     if (image) {
       uploadImageToStorage(image).then((success) => {
         console.log('success'+ success)
@@ -41,8 +40,6 @@ const storage = new  Storage({
         })
         .catch((err:any) => {
             console.error(err);
-  
-  
         })
     
   });
@@ -54,15 +51,14 @@ const storage = new  Storage({
    */
   const uploadImageToStorage = (image :any) => {
     return new Promise((resolve, reject) => {
+      console.log(image)
       if (!image) {
         reject('No image file');
       }
-      const newImageName = `galery/${image.originalname}_${Date.now()}`;
+      const newImageName = "gallery/" + new Date().toISOString() + image.originalname;
       console.log(newImageName)
   
-      let imageUpload = bucket.file(newImageName);
-      console.log(image.mimetype)
-  
+      let imageUpload = bucket.file(newImageName);  
       const blobStream = imageUpload.createWriteStream({
         metadata: {
           contentType: image.mimetype
