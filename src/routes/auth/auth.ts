@@ -13,4 +13,8 @@ $.post('/signup', authService.signup);
 
 $.post('/login',authService.login);
 
+$.post('/send-otp',authService.sendOtp);
+
+$.post('/reset-password',authService.resetPassword);
+
 export default $;
