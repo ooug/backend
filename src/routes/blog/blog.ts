@@ -24,15 +24,11 @@ $.patch('/update-one', blogService.UpdateBlog);
 //delete a blog 
 $.delete('/delete-one', blogService.DeleteBlog)
 
+//viwe count
+$.post('/view-count',blogService.CountViewsInBlog)
 
-
-
-
-
-
-
-
-
+// likes count
+$.post('/likes-count',blogService.LikesCountInBlog)
 
 
 export default $;
