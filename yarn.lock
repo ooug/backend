@@ -24,6 +24,11 @@
     js-tokens "^4.0.0"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> 522c5ee3e35433a1a76b206e295b9d6e99176a99
 "@firebase/analytics-types@0.3.1":
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/@firebase/analytics-types/-/analytics-types-0.3.1.tgz#3c5f5d71129c88295e17e914e34b391ffda1723c"
@@ -247,6 +252,10 @@
   resolved "https://registry.yarnpkg.com/@firebase/webchannel-wrapper/-/webchannel-wrapper-0.2.41.tgz#4e470c25a99fa0b1f629f1c5ef180a318d399fd0"
   integrity sha512-XcdMT5PSZHiuf7LJIhzKIe+RyYa25S3LHRRvLnZc6iFjwXkrSDJ8J/HWO6VT8d2ZTbawp3VcLEjRF/VN8glCrA==
 
+<<<<<<< HEAD
+=======
+>>>>>>> aec0e828b0a68d00e8e23dad1b79e1e26f0522fe
+>>>>>>> 522c5ee3e35433a1a76b206e295b9d6e99176a99
 =======
 >>>>>>> d8ff34ff9d3fd2c09e020de3640dc369655f126e
 "@google-cloud/common@^3.0.0":

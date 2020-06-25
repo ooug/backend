@@ -26,7 +26,7 @@ $.post('/like-count',galleryService.CountLikeInImage);
 
 $.get('/get-gallery-detail',galleryService.fetchAlldetail);
 
-$.get('/get-gallery-detail?event',galleryService.fetchImagebyEvent);
+$.get('/get-gallery-detail/:event',galleryService.fetchImagebyEvent);
 
 
 export default $;

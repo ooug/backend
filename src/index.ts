@@ -13,8 +13,6 @@ import { default as morgan } from 'morgan';
 import router from './routes';
 import { textContentTypeMiddleware } from './middlewares';
 import { default as mongoose } from 'mongoose';
-
-import { connect } from 'mongoose';
 import { default as passport } from 'passport';
 
 import './middlewares/passport-config';
