@@ -1,5 +1,5 @@
 import{ Router , RouterOptions} from 'express';
-import { galleryImageUpload} from '../../services/gallery.service';
+import { galleryService} from '../../services';
 import { Request, Response , NextFunction } from "express";
 import { default as Multer } from "multer";
 
@@ -19,7 +19,7 @@ const options = {
 
 const $ = Router(options);
 
-$.post('/post-gallery-detail',multer.single('image') ,galleryImageUpload);
+$.post('/post-gallery-detail',multer.single('image') ,galleryService.galleryImageUpload);
 
 
 
