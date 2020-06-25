@@ -21,6 +21,9 @@ const $ = Router(options);
 
 $.post('/post-gallery-detail',multer.single('image') ,galleryService.galleryImageUpload);
 
+$.get('/get-gallery-detail',galleryService.fetchAlldetail);
+
+$.get('/get-gallery-detail?event',galleryService.fetchImagebyEvent);
 
 
 export default $;
