@@ -4,6 +4,7 @@ import { default as appRoutes } from './app/app';
 import { default as upcomingEventRoutes } from './upcomingEvent/upcomingEvent';
 import { default as authRoutes } from './auth/auth';
 import { default as galleryRoute } from './gallery/gallery'
+import { default as blogRoutes } from './blog/blog'
 import passport from 'passport';
 
 const options = {

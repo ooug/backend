@@ -24,6 +24,7 @@
     js-tokens "^4.0.0"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 "@firebase/analytics-types@0.3.1":
   version "0.3.1"
@@ -249,6 +250,8 @@
   integrity sha512-XcdMT5PSZHiuf7LJIhzKIe+RyYa25S3LHRRvLnZc6iFjwXkrSDJ8J/HWO6VT8d2ZTbawp3VcLEjRF/VN8glCrA==
 
 >>>>>>> aec0e828b0a68d00e8e23dad1b79e1e26f0522fe
+=======
+>>>>>>> d8ff34ff9d3fd2c09e020de3640dc369655f126e
 "@google-cloud/common@^3.0.0":
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/@google-cloud/common/-/common-3.1.1.tgz#067aaa1f9c1a729b254be6d815bd5377170f4783"

@@ -11,14 +11,7 @@ const storage = new  Storage({
   });
 
 
-  
-  
-  const bucket = storage.bucket("gs://fir-gallery-231f2.appspot.com");
-  
-  
-  
-
-  
+    const bucket = storage.bucket("gs://fir-gallery-231f2.appspot.com");
   /**
    * Adding new file to the storage
    */
@@ -82,3 +75,19 @@ const storage = new  Storage({
       blobStream.end(image.buffer);
     });
   }
+//to get all the images detail
+  export const fetchAlldetail =async ( req:Request , res:Response ) =>{
+   galleryModel.find({})
+   .then((data:any)=>{
+     res.status(200).send(data);
+   }) .catch((err:any)=>{ res.send(err)});
+  }
+
+  //to get image by event name 
+  export const fetchImagebyEvent =async ( req:Request , res:Response ) =>{
+    galleryModel.find({eventName:req.params.event})
+    .then((data:any)=>{
+      res.status(200).send(data);
+    }) .catch((err:any)=>{ res.send(err)});
+   }
+
