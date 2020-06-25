@@ -24,11 +24,9 @@ const storage = new  Storage({
    */
   export const galleryImageUpload= async  ( req:Request, res:Response ) => {
     JSON.stringify(req.body)
-    console.log('Upload Image');
     const image = req.file;
     const eventName = req.body.eventName;
     const description = req.body.description;
-  
     if (image) {
       uploadImageToStorage(image).then((success) => {
         console.log('success'+ success)
@@ -51,7 +49,6 @@ const storage = new  Storage({
    */
   const uploadImageToStorage = (image :any) => {
     return new Promise((resolve, reject) => {
-      console.log(image)
       if (!image) {
         reject('No image file');
       }

@@ -19,7 +19,7 @@ const options = {
 
 const $ = Router(options);
 
-$.post('/imageUpload',multer.single('image') ,galleryImageUpload);
+$.post('/post-gallery-detail',multer.single('image') ,galleryImageUpload);
 
 
 
