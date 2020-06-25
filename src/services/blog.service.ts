@@ -140,6 +140,24 @@ export const DeleteBlog = (req: Request, res: Response) => {
 };
 
 
-
+//Likes count of a blog
+export const LikesCountInBlog = (req: Request, res: Response) => {
+  blogModel.findById(req.body.id).then((blog: any) => {
+    blog.Likes++;
+    blog
+    .save()
+    .then(() =>{
+      res.send({
+        data: 'likes increased',
+      })
+    })
+  .catch(() => {
+    res.send({
+      
+      
+    })
+  })
+  })
+}
 
 
