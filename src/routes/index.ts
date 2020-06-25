@@ -6,6 +6,7 @@ import { default as activitiesRoutes } from './activities/activities';
 import { default as appRoutes } from './app/app';
 import { default as upcomingEventRoutes } from './upcomingEvent/upcomingEvent';
 import { default as authRoutes } from './auth/auth';
+import { default as blogRoutes } from './blog/blog'
 import passport from 'passport';
 
 const options = {
@@ -32,6 +33,9 @@ $.use('/upcoming-event', upcomingEventRoutes);
 
 // authorization routes
 $.use('/auth', authRoutes);
+
+//blog routes
+$.use('/blog', blogRoutes)
 
 // test route for passport
 $.get(
