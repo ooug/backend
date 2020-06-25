@@ -33,7 +33,7 @@ $.use('/app', appRoutes);
 $.use('/upcoming-event', upcomingEventRoutes);
 
 // gallery routes
-$.use('/gallery',galleryRoute);
+$.use('/',galleryRoute);
 
 
 

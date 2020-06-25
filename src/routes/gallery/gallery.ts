@@ -1,8 +1,8 @@
 import{ Router , RouterOptions} from 'express';
-import { galleryImageUpload} from '../../services/gallery.service';
+import { galleryService} from '../../services';
 import { Request, Response , NextFunction } from "express";
 import { default as Multer } from "multer";
-import { CountLikeInImage }  from '../../services/gallery.service';
+
 
 const options = {
     strict: true,
@@ -20,10 +20,13 @@ const options = {
 
 const $ = Router(options);
 
-$.post('/imageUpload',multer.single('image') ,galleryImageUpload);
+$.post('/post-gallery-detail',multer.single('image') ,galleryService.galleryImageUpload);
 
-$.post('/like-count',CountLikeInImage);
+$.post('/like-count',galleryService.CountLikeInImage);
 
+$.get('/get-gallery-detail',galleryService.fetchAlldetail);
+
+$.get('/get-gallery-detail?event',galleryService.fetchImagebyEvent);
 
 
 export default $;

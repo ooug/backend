@@ -11,25 +11,15 @@ const storage = new  Storage({
   });
 
 
-  
-  
-  const bucket = storage.bucket("gs://fir-gallery-231f2.appspot.com");
-  
-  
-  
-
-  
+    const bucket = storage.bucket("gs://fir-gallery-231f2.appspot.com");
   /**
    * Adding new file to the storage
    */
   export const galleryImageUpload= async  ( req:Request, res:Response ) => {
-      JSON.stringify(req.body)
-    console.log('Upload Image');
+    JSON.stringify(req.body)
     const image = req.file;
     const eventName = req.body.eventName;
     const description = req.body.description;
-  
-    
     if (image) {
       uploadImageToStorage(image).then((success) => {
         console.log('success'+ success)
@@ -41,8 +31,6 @@ const storage = new  Storage({
         })
         .catch((err:any) => {
             console.error(err);
-  
-  
         })
     
   });
@@ -57,12 +45,10 @@ const storage = new  Storage({
       if (!image) {
         reject('No image file');
       }
-      const newImageName = `galery/${image.originalname}_${Date.now()}`;
+      const newImageName = "gallery/" + new Date().toISOString() + image.originalname;
       console.log(newImageName)
   
-      let imageUpload = bucket.file(newImageName);
-      console.log(image.mimetype)
-  
+      let imageUpload = bucket.file(newImageName);  
       const blobStream = imageUpload.createWriteStream({
         metadata: {
           contentType: image.mimetype
@@ -105,3 +91,19 @@ const storage = new  Storage({
     })
  })
 }
+//to get all the images detail
+  export const fetchAlldetail =async ( req:Request , res:Response ) =>{
+   galleryModel.find({})
+   .then((data:any)=>{
+     res.status(200).send(data);
+   }) .catch((err:any)=>{ res.send(err)});
+  }
+
+  //to get image by event name 
+  export const fetchImagebyEvent =async ( req:Request , res:Response ) =>{
+    galleryModel.find({eventName:req.params.event})
+    .then((data:any)=>{
+      res.status(200).send(data);
+    }) .catch((err:any)=>{ res.send(err)});
+   }
+
