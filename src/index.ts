@@ -13,13 +13,14 @@ import { default as morgan } from 'morgan';
 import router from './routes';
 import { textContentTypeMiddleware } from './middlewares';
 import { default as mongoose } from 'mongoose';
+
+import { connect } from 'mongoose';
 import { default as passport } from 'passport';
 
 import './middlewares/passport-config';
 
 const conf = config();
 if (conf.error) throw new Error(conf.error.message);
-// else console.log(conf.parsed);
 
 export const bootstrap = async function () {
   const $: Express = express();

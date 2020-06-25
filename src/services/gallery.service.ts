@@ -89,3 +89,19 @@ const storage = new  Storage({
       blobStream.end(image.buffer);
     });
   }
+
+ export const CountLikeInImage= async(req: Request, res:Response)=>{
+  galleryModel.findById(req.body.id).then((image:any)=>{
+    image.like++;
+    image.save().then(()=>{
+      res.send({
+        status: true,
+        data:'Like incremented',
+      })
+    }).catch((err:any) =>{
+    res.send({
+    data:err,
+    })
+    })
+ })
+}
