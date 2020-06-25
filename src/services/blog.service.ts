@@ -148,12 +148,13 @@ export const CountViewsInBlog = (req: Request, res: Response) => {
       .then(() => {
         res.send({
           data: 'View incremented',
-        })
+        });
       })
       .catch((err: any) => {
         res.send({
           data: err,
-        })
-      })
-  })
-}
+        });
+      });
+  });
+};
+
