@@ -19,7 +19,6 @@ import './middlewares/passport-config';
 
 const conf = config();
 if (conf.error) throw new Error(conf.error.message);
-// else console.log(conf.parsed);
 
 export const bootstrap = async function () {
   const $: Express = express();
