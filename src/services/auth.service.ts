@@ -45,7 +45,7 @@ export const login = async (req: Request, res: Response) => {
 
     // if user not found
     if (!user) {
-      return res.status(500).send({
+      return res.status(200).send({
         status: false,
         data: info.message,
         path: req.path,
