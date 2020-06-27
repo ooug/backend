@@ -6,7 +6,7 @@ import { error } from '../utils';
 
 const storage = new Storage({
   projectId: "ooug-cc348",
-  keyFilename: path.join(__dirname , "./assets/activities/ooug-cc348.json")
+  keyFilename: path.join(__dirname , "../assets/activities/ooug-cc348.json")
 });
 const bucket = storage.bucket("gs://ooug-cc348.appspot.com");
 
@@ -39,8 +39,9 @@ export const postEventDetail = async ( req: Request, res: Response ) =>{
   const eventOn = req.body.eventOn;
   const organizedBy = req.body.organizedBy;
   const organizedAt = req.body.organizedAt;
+  const eventDetails = req.body.eventDetails;
   if(file){
-    PostActivityDetail(file, eventType, date, eventOn, organizedBy, organizedAt)
+    PostActivityDetail(file, eventType, date, eventOn, organizedBy, organizedAt, eventDetails)
     .then((success) => {
       res.send({status: 'success'});
     }).catch((err) => {
@@ -71,7 +72,7 @@ export const getEventDetailFarewell = async ( req: Request, res: Response ) =>{
   })
 }
 
-const PostActivityDetail = (file:any, eventtype:any, date:any, eventon:any, organizedby:any, organizedat:any) =>{
+const PostActivityDetail = (file:any, eventtype:any, date:any, eventon:any, organizedby:any, organizedat:any, eventdetails:any) =>{
   return new Promise((resolve, reject) => {
     if(!file){
       reject('no image file');
@@ -92,7 +93,7 @@ const PostActivityDetail = (file:any, eventtype:any, date:any, eventon:any, orga
       const url = `https://storage.googleapis.com/${bucket.name}/${fileUpload.name}`;
       console.log(url);
       resolve(url);
-      const eventdetail  = new eventDetail({eventImage: url, eventType: eventtype, eventDate: date, eventOn: eventon, organizedBy: organizedby, organizedAt: organizedat});
+      const eventdetail  = new eventDetail({eventImage: url, eventType: eventtype, eventDate: date, eventOn: eventon, organizedBy: organizedby, organizedAt: organizedat, eventDetails: eventdetails});
       eventdetail.save().then(()=>{
         resolve("data saved")
       }).catch(()=>{

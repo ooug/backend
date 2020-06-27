@@ -11,7 +11,8 @@ const EventSchema = new mongoose.Schema({
   eventDate: {type: String},
   eventOn: {type: String},
   organizedBy: {type: String},
-  organizedAt: {type: String}
+  organizedAt: {type: String},
+  eventDetails:{type: String}
 });
 
 export const imageSlider = mongoose.model('imageSlider', imageSliderSchema);
