@@ -19,7 +19,7 @@ $.get('/get-all', upcomingEventService.getAllUpcomingEvent);
 $.get('/get-one/:id', upcomingEventService.getOneUpcomingEvent);
 
 // delete one upcoming event
-$.delete('/delete-one', upcomingEventService.deleteOneUpcomingEvent);
+$.post('/delete-one', upcomingEventService.deleteOneUpcomingEvent);
 
 // register for an event
 $.post('/register', upcomingEventService.registerForEvent);
