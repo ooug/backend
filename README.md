@@ -5,8 +5,8 @@ ooug backend using typescript and express with mongodb
 # Setup
 
 ```
-node version v10.20.1 LTS
-typescript version 3.9
+node version v12.16.1 LTS
+typescript version 4.0.2
 
 ```
 
