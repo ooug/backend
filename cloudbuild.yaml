@@ -5,7 +5,7 @@ steps:
   - name: node:10 # Running build
     entrypoint: yarn
     args: ['build']
-  - name: node:10 # Creating local .env file
+  - name: node:12 # Creating local .env file
     entrypoint: yarn
     args: ['create-env']
     env:
