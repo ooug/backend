@@ -27,4 +27,7 @@ $.post('/register', upcomingEventService.registerForEvent);
 // get registration for an event
 $.get('/registrations/:id',upcomingEventService.getRegistrationsOfEvent);
 
+// update event
+$.post('/update-one', upcomingEventService.updateOneUpcomingEvent);
+
 export default $;
