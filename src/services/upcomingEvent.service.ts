@@ -183,7 +183,7 @@ export const registerForEvent = (req: Request, res: Response) => {
 export const getRegistrationsOfEvent = (req: Request, res: Response) => {
   upcomingEventModel
     .findById(req.params.id)
-    .then((event:any) => {
+    .then((event: any) => {
       if (!event) {
         return res.send({
           status: false,
@@ -192,14 +192,14 @@ export const getRegistrationsOfEvent = (req: Request, res: Response) => {
           timestamp: Math.trunc(Date.now() / 1000),
         });
       }
-      if(event.Registrations.length===0){
+      if (event.Registrations.length === 0) {
         res.send({
           status: false,
           data: 'NO_REGISTRATIONS_FOUND',
           path: req.path,
           timestamp: Math.trunc(Date.now() / 1000),
         });
-      }else{
+      } else {
         res.send({
           status: true,
           data: event.Registrations,
@@ -214,6 +214,23 @@ export const getRegistrationsOfEvent = (req: Request, res: Response) => {
         data: 'EVENT_NOT_FOUND',
         path: req.path,
         timestamp: Math.trunc(Date.now() / 1000),
+      });
+    });
+};
+
+export const updateOneUpcomingEvent = (req: Request, res: Response) => {
+  upcomingEventModel
+    .findByIdAndUpdate(req.body.eventId, req.body.event)
+    .then((data) => {
+      res.json({
+        status: true,
+        data: data,
+      });
+    })
+    .catch((err) => {
+      res.json({
+        status: false,
+        data: err,
       });
     });
 };
