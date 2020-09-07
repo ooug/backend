@@ -24,7 +24,7 @@ export const uploadFile = (file: file) => {
     }
 
     const newFileName =
-      'activities/' + new Date().toISOString() + file.originalName;
+      file.folder + new Date().toISOString() + file.originalName;
     const fileUpload = bucket.file(newFileName);
 
     const blobStream = fileUpload.createWriteStream({
