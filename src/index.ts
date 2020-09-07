@@ -29,7 +29,7 @@ export const bootstrap = async function () {
   $.disable('etag');
   $.disable('x-powered-by');
   $.use(cors());
-  $.use(json());
+  $.use(json({limit:'10mb'}));
   $.use(morgan('dev'));
   $.use(urlencoded({ extended: false }));
   $.use(serve(join(__dirname, 'public')));
