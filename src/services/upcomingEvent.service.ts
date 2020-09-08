@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { upcomingEventModel } from '../models/upcomingEvent';
 
 // add upcoming event
-export const addUpcomingEvent = (req: Request, res: Response) => {
+export const addUpcomingEvent = async (req: Request, res: Response) => {
   let newEvent = new upcomingEventModel(req.body);
   newEvent
     .save()
@@ -25,7 +25,7 @@ export const addUpcomingEvent = (req: Request, res: Response) => {
 };
 
 // get all upcoming event
-export const getAllUpcomingEvent = (req: Request, res: Response) => {
+export const getAllUpcomingEvent = async (req: Request, res: Response) => {
   upcomingEventModel
     .find()
     .select('-Registrations')
@@ -48,7 +48,7 @@ export const getAllUpcomingEvent = (req: Request, res: Response) => {
 };
 
 // get one upcoming event
-export const getOneUpcomingEvent = (req: Request, res: Response) => {
+export const getOneUpcomingEvent = async (req: Request, res: Response) => {
   upcomingEventModel
     .findById(req.params.id)
     .select('-Registrations')
@@ -80,7 +80,7 @@ export const getOneUpcomingEvent = (req: Request, res: Response) => {
 };
 
 // delete one upcoming event
-export const deleteOneUpcomingEvent = (req: Request, res: Response) => {
+export const deleteOneUpcomingEvent = async (req: Request, res: Response) => {
   upcomingEventModel
     .findByIdAndDelete(req.body.id)
     .then((event) => {
@@ -111,7 +111,7 @@ export const deleteOneUpcomingEvent = (req: Request, res: Response) => {
 };
 
 // register for an event
-export const registerForEvent = (req: Request, res: Response) => {
+export const registerForEvent = async (req: Request, res: Response) => {
   upcomingEventModel
     .findById(req.body.id)
     .then((event: any) => {
@@ -180,7 +180,7 @@ export const registerForEvent = (req: Request, res: Response) => {
 };
 
 // get all registrations for an event
-export const getRegistrationsOfEvent = (req: Request, res: Response) => {
+export const getRegistrationsOfEvent = async (req: Request, res: Response) => {
   upcomingEventModel
     .findById(req.params.id)
     .then((event: any) => {
@@ -218,7 +218,7 @@ export const getRegistrationsOfEvent = (req: Request, res: Response) => {
     });
 };
 
-export const updateOneUpcomingEvent = (req: Request, res: Response) => {
+export const updateOneUpcomingEvent = async (req: Request, res: Response) => {
   upcomingEventModel
     .findByIdAndUpdate(req.body.eventId, req.body.event)
     .then((data) => {

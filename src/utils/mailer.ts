@@ -14,7 +14,8 @@ export const sendMail = (
   to: string | string[],
   subject: string,
   text: string='',
-  html: string=''
+  html: string='',
+  attachment: {path:string}[]=[]
 ) => {
   return new Promise((resolve, reject) => {
     transporter
@@ -24,7 +25,8 @@ export const sendMail = (
         to: to, // list of receivers
         subject: subject, // Subject line
         text: text, // plain text body
-        html: html
+        html: html,
+        attachments: attachment
       })
       .then((data) => {
         resolve(data);

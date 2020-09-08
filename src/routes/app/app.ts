@@ -12,6 +12,9 @@ const $ = Router(options);
 // submitting contact us form
 $.post('/contact-us', appService.contactUs);
 
+// get contact us request
+$.get('/get-contact-us-requests', appService.getContactUsRequests);
+
 // subscribe newsletter
 $.post('/newsletter-subscribe', appService.newsletterSubscribe);
 
