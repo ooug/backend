@@ -1,6 +1,7 @@
-import { Request, Response } from 'express';
+import e, { Request, Response } from 'express';
 import { contactUsModel, newsletterModel } from '../models/app';
 import { sendMail } from '../utils/mailer';
+import { uploadFile } from '../utils/fileUploader';
 
 // contact us
 export const contactUs = async (req: Request, res: Response) => {
@@ -130,7 +131,6 @@ export const newsletterUnsubscribe = async (req: Request, res: Response) => {
           });
         })
         .catch((err) => {
-          console.log(err);
           res.status(200).send({
             status: false,
             data: 'ERROR_OCCURRED',
@@ -179,37 +179,83 @@ export const getNewsletterSubscription = async (
 export const sendNewsletter = async (req: Request, res: Response) => {
   if (req.body.file) {
     // handle file attachment here
-  }
-  newsletterModel
-    .find()
-    .then((subscriptions) => {
-      const emailIds = subscriptions.map((e: any) => {
-        return e.email;
-      });
-      sendMail(emailIds, req.body.subject, '', req.body.html)
-        .then(() => {
-          res.status(200).send({
-            status: true,
-            data: 'NEWSLETTER_SENT',
-            path: req.path,
-            timestamp: Math.trunc(Date.now() / 1000),
+    uploadFile(req.body.file)
+      .then((url: any) => {
+        newsletterModel
+          .find()
+          .then((subscriptions) => {
+            const emailIds = subscriptions.map((e: any) => {
+              return e.email;
+            });
+            sendMail(emailIds, req.body.subject, '', req.body.html, [
+              { path: url },
+            ])
+              .then(() => {
+                res.status(200).send({
+                  status: true,
+                  data: 'NEWSLETTER_SENT',
+                  path: req.path,
+                  timestamp: Math.trunc(Date.now() / 1000),
+                });
+              })
+              .catch((err) => {
+                res.status(200).send({
+                  status: false,
+                  data: err,
+                  path: req.path,
+                  timestamp: Math.trunc(Date.now() / 1000),
+                });
+              });
+          })
+          .catch((err) => {
+            res.status(200).send({
+              status: false,
+              data: err,
+              path: req.path,
+              timestamp: Math.trunc(Date.now() / 1000),
+            });
           });
-        })
-        .catch((err) => {
-          res.status(200).send({
-            status: false,
-            data: err,
-            path: req.path,
-            timestamp: Math.trunc(Date.now() / 1000),
-          });
+      })
+      .catch((err) => {
+        res.status(200).send({
+          status: false,
+          data: err,
+          path: req.path,
+          timestamp: Math.trunc(Date.now() / 1000),
         });
-    })
-    .catch((err) => {
-      res.status(200).send({
-        status: false,
-        data: err,
-        path: req.path,
-        timestamp: Math.trunc(Date.now() / 1000),
       });
-    });
+  } else {
+    newsletterModel
+      .find()
+      .then((subscriptions) => {
+        const emailIds = subscriptions.map((e: any) => {
+          return e.email;
+        });
+        sendMail(emailIds, req.body.subject, '', req.body.html)
+          .then(() => {
+            res.status(200).send({
+              status: true,
+              data: 'NEWSLETTER_SENT',
+              path: req.path,
+              timestamp: Math.trunc(Date.now() / 1000),
+            });
+          })
+          .catch((err) => {
+            res.status(200).send({
+              status: false,
+              data: err,
+              path: req.path,
+              timestamp: Math.trunc(Date.now() / 1000),
+            });
+          });
+      })
+      .catch((err) => {
+        res.status(200).send({
+          status: false,
+          data: err,
+          path: req.path,
+          timestamp: Math.trunc(Date.now() / 1000),
+        });
+      });
+  }
 };
