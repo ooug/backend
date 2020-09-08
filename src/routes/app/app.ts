@@ -19,5 +19,12 @@ $.get('/get-contact-us-requests', appService.getContactUsRequests);
 $.post('/newsletter-subscribe', appService.newsletterSubscribe);
 
 // unsubscribe newsletter
-$.delete('/newsletter-unsubscribe', appService.newsletterUnsubscribe)
+$.delete('/newsletter-unsubscribe', appService.newsletterUnsubscribe);
+
+// get newsletter subscriptions
+$.get('/get-newsletter-subscriptions', appService.getNewsletterSubscription);
+
+// send newsLetter
+$.post('/send-newsletter', appService.sendNewsletter);
+
 export default $;

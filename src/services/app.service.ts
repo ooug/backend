@@ -149,3 +149,67 @@ export const newsletterUnsubscribe = async (req: Request, res: Response) => {
     }
   });
 };
+
+// getting all newsletter subscription
+export const getNewsletterSubscription = async (
+  req: Request,
+  res: Response
+) => {
+  newsletterModel
+    .find()
+    .then((subscriptions) => {
+      res.status(200).send({
+        status: true,
+        data: subscriptions,
+        path: req.path,
+        timestamp: Math.trunc(Date.now() / 1000),
+      });
+    })
+    .catch((err) => {
+      res.status(200).send({
+        status: false,
+        data: err,
+        path: req.path,
+        timestamp: Math.trunc(Date.now() / 1000),
+      });
+    });
+};
+
+// send newsletter to all subscriptions
+export const sendNewsletter = async (req: Request, res: Response) => {
+  if (req.body.file) {
+    // handle file attachment here
+  }
+  newsletterModel
+    .find()
+    .then((subscriptions) => {
+      const emailIds = subscriptions.map((e: any) => {
+        return e.email;
+      });
+      sendMail(emailIds, req.body.subject, '', req.body.html)
+        .then(() => {
+          res.status(200).send({
+            status: true,
+            data: 'NEWSLETTER_SENT',
+            path: req.path,
+            timestamp: Math.trunc(Date.now() / 1000),
+          });
+        })
+        .catch((err) => {
+          res.status(200).send({
+            status: false,
+            data: err,
+            path: req.path,
+            timestamp: Math.trunc(Date.now() / 1000),
+          });
+        });
+    })
+    .catch((err) => {
+      res.status(200).send({
+        status: false,
+        data: err,
+        path: req.path,
+        timestamp: Math.trunc(Date.now() / 1000),
+      });
+    });
+};
