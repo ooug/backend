@@ -23,9 +23,16 @@ const $ = Router(options);
 $.use('/get-image-slider', activitiesService.getImageSlider);
 $.post('/post-image-slider', multer.single('file'), activitiesService.postImageSlider);
 
+
+$.post('/update-event-detail-without-image' , activitiesService.updateEventWithoutImage);
+$.post('/update-event-detail-with-image', multer.single('file'), activitiesService.updateEventWithImage);
+$.post('/delete-event-detail' , activitiesService.deleteEvent);
+$.get('/get-event-detail' , activitiesService.getEventDetail);
+$.get('/get-recent-event-detail' , activitiesService.getRecentEventDetail);
 $.get('/get-event-detail-workshop' , activitiesService.getEventDetailWorkshop);
 $.get('/get-event-detail-techbhukkads', activitiesService.getEventDetailTechbhukkads);
 $.get('/get-event-detail-farewell', activitiesService.getEventDetailFarewell);
 $.post('/post-event-detail', multer.single('file'), activitiesService.postEventDetail);
 
 export default $;
+
