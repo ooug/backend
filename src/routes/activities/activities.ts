@@ -22,6 +22,9 @@ const $ = Router(options);
 // activities page slider
 $.use('/get-image-slider', activitiesService.getImageSlider);
 $.post('/post-image-slider', multer.single('file'), activitiesService.postImageSlider);
+$.post('/delete-upcoming-detail', activitiesService.deleteUpcoming);
+$.post('/update-upcoming-without-image', activitiesService.updateUpcomingWithoutImage);
+$.post('/update-upcoming-with-image', activitiesService.updateUpcomingWithImage);
 
 
 $.post('/update-event-detail-without-image' , activitiesService.updateEventWithoutImage);

@@ -19,9 +19,10 @@ export const getImageSlider = async ( req: Request, res: Response) =>{
 }
 
 export const postImageSlider = async ( req: Request, res: Response) =>{
-  JSON.stringify(req.body)
-  const file = req.file;
-  const sliderurl = req.body.sliderUrl;
+  const file = req.body.file;
+  file.buffer = Buffer.from(file.buffer, "base64")
+  file.buffer = Buffer.from(file.buffer, 'utf8');
+  const sliderurl = req.body.url;
   if (file) {
     PostImageSliderStorage(file, sliderurl).then((success) => {
       res.send({status: 'success'});
@@ -30,17 +31,50 @@ export const postImageSlider = async ( req: Request, res: Response) =>{
     });
   }
 }
+export const deleteUpcoming = async (req: Request, res: Response) =>{
+  imageSlider.findByIdAndRemove(req.body.id)
+    .then((success) => {
+      res.send({status: 'success'});
+    }).catch((err) => {
+      console.error(err);
+    })
+}
 
-export const postEventDetail = async ( req: Request, res: Response ) =>{
-
-
+export const updateUpcomingWithoutImage = async (req: Request, res: Response) =>{
   const file = req.body.file;
-  console.log(Buffer.from(file.buffer, 'utf8'))
+  const link = req.body.url;
+  imageSlider.updateOne({_id:req.body.id}, { imageName: file, url: link })
+    .then((success) => {
+      res.send({status: 'success'});
+    }).catch((err) => {
+      console.error(err);
+    })
+}
+export const updateUpcomingWithImage = async (req: Request, res: Response) =>{
+  const file = req.body.file;
   file.buffer = Buffer.from(file.buffer, "base64")
   file.buffer = Buffer.from(file.buffer, 'utf8');
-  console.log(file)
+  const link = req.body.url;
 
+  if(file){
+    UpdateUpcomingImage(file)
+    .then((success) => {
+      imageSlider.updateOne({_id:req.body.id}, {imageName: success, url: link})
+    .then((s) => {
+      res.send({status: 'success'});
+    }).catch((err) => {
+      console.error(err);
+    })
+    }).catch((error) => {
+      console.error(error);
+    })
+  }
+}
 
+export const postEventDetail = async ( req: Request, res: Response ) =>{
+  const file = req.body.file;
+  file.buffer = Buffer.from(file.buffer, "base64")
+  file.buffer = Buffer.from(file.buffer, 'utf8');
   const eventType = req.body.eventType;
   const date = req.body.date;
   const eventOn = req.body.eventOn;
@@ -101,7 +135,6 @@ export const deleteEvent = async (req: Request, res: Response) =>{
     })
 }
 export const updateEventWithoutImage = async (req: Request, res: Response) =>{
-  console.log(req.body.id);
   const event = req.body.eventType;
   const date = req.body.date;
   const on = req.body.eventOn;
@@ -118,10 +151,8 @@ export const updateEventWithoutImage = async (req: Request, res: Response) =>{
 
 export const updateEventWithImage = async (req: Request, res: Response) =>{
   const file = req.body.file;
-  console.log(Buffer.from(file.buffer, 'utf8'))
   file.buffer = Buffer.from(file.buffer, "base64")
   file.buffer = Buffer.from(file.buffer, 'utf8');
-  console.log(file)
 
   const id = req.body.id;
   const type = req.body.eventType;
@@ -135,7 +166,7 @@ export const updateEventWithImage = async (req: Request, res: Response) =>{
     .then((success) => {
       eventDetail.updateOne({_id:req.body.id}, {eventImage: success, eventType: type, eventDate: date, eventOn: on, organizedBy: by, organizedAt: at, eventDetails: details})
     .then((s) => {
-      res.send({status: success});
+      res.send({status: 'success'});
     }).catch((err) => {
       console.error(err);
     })
@@ -164,7 +195,6 @@ const UpdateActivityDetail = (file:any) =>{
     blobStream.on('finish', () => {
       // The public URL can be used to directly access the file via HTTP.
       const url = `https://storage.googleapis.com/${bucket.name}/${fileUpload.name}`;
-      console.log(url);
       resolve(url);
     });
     blobStream.end(file.buffer);
@@ -190,7 +220,6 @@ const PostActivityDetail = (file:any, eventtype:any, date:any, eventon:any, orga
     blobStream.on('finish', () => {
       // The public URL can be used to directly access the file via HTTP.
       const url = `https://storage.googleapis.com/${bucket.name}/${fileUpload.name}`;
-      console.log(url);
       resolve(url);
       const eventdetail  = new eventDetail({eventImage: url, eventType: eventtype, eventDate: date, eventOn: eventon, organizedBy: organizedby, organizedAt: organizedat, eventDetails: eventdetails});
       eventdetail.save().then(()=>{
@@ -223,7 +252,6 @@ const PostImageSliderStorage = (file: any, sliderurl: any) => {
     blobStream.on('finish', () => {
       // The public URL can be used to directly access the file via HTTP.
       const imageUrl = `https://storage.googleapis.com/${bucket.name}/${fileUpload.name}`;
-      console.log(imageUrl);
       const imageslider  = new imageSlider({ imageName: imageUrl, url: sliderurl });
       imageslider
     .save()
@@ -238,5 +266,30 @@ const PostImageSliderStorage = (file: any, sliderurl: any) => {
   });
 }
 
+const UpdateUpcomingImage = (file: any) => {
+  return new Promise((resolve, reject) => {
+    if (!file) {
+      reject('No image file');
+    }
+    const newFileName = "imageslider/"+ new Date().toISOString() +file.originalname;
+    const fileUpload = bucket.file(newFileName);
+
+    const blobStream = fileUpload.createWriteStream({
+      metadata: {
+        contentType: file.mimetype
+      }
+    });
+    blobStream.on('error', (error:any) => {
+      reject('Something is wrong! Unable to upload at the moment.');
+    });
+
+    blobStream.on('finish', () => {
+      // The public URL can be used to directly access the file via HTTP.
+      const imageUrl = `https://storage.googleapis.com/${bucket.name}/${fileUpload.name}`;
+      resolve(imageUrl);
+    });
+    blobStream.end(file.buffer);
+  });
+}
 
 
