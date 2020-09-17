@@ -15,8 +15,21 @@ const newsletterSchema = new mongoose.Schema({
   timeStamp: { type: String, required: true },
 });
 
+const newsLetterHistorySchema = new mongoose.Schema({
+  subject: { type: String, required: true },
+  body: { type: String, required: true },
+  fileUrl: { type: String, default: null },
+  timeStamp: { type: String, required: true },
+});
+
 // exporting contactUsModel
 export const contactUsModel = mongoose.model('contactUs', contactUsSchema);
 
 // exporting newsletterModel
 export const newsletterModel = mongoose.model('newsletter', newsletterSchema);
+
+// exporting newsLetterHistoryModel
+export const newsLetterHistoryModel = mongoose.model(
+  'newsletter_history',
+  newsLetterHistorySchema
+);

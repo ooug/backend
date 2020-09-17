@@ -1,5 +1,9 @@
 import e, { Request, Response } from 'express';
-import { contactUsModel, newsletterModel } from '../models/app';
+import {
+  contactUsModel,
+  newsletterModel,
+  newsLetterHistoryModel,
+} from '../models/app';
 import { sendMail } from '../utils/mailer';
 import { uploadFile } from '../utils/fileUploader';
 
@@ -191,12 +195,31 @@ export const sendNewsletter = async (req: Request, res: Response) => {
               { path: url },
             ])
               .then(() => {
-                res.status(200).send({
-                  status: true,
-                  data: 'NEWSLETTER_SENT',
-                  path: req.path,
-                  timestamp: Math.trunc(Date.now() / 1000),
+                const newNewsletterHistory = new newsLetterHistoryModel({
+                  subject: req.body.subject,
+                  body: req.body.html,
+                  fileUrl: url,
+                  timeStamp: Math.trunc(Date.now() / 1000),
                 });
+
+                newNewsletterHistory
+                  .save()
+                  .then(() => {
+                    res.status(200).send({
+                      status: true,
+                      data: 'NEWSLETTER_SENT',
+                      path: req.path,
+                      timestamp: Math.trunc(Date.now() / 1000),
+                    });
+                  })
+                  .catch(() => {
+                    res.status(200).send({
+                      status: true,
+                      data: 'NEWSLETTER_SENT',
+                      path: req.path,
+                      timestamp: Math.trunc(Date.now() / 1000),
+                    });
+                  });
               })
               .catch((err) => {
                 res.status(200).send({
@@ -233,12 +256,31 @@ export const sendNewsletter = async (req: Request, res: Response) => {
         });
         sendMail(emailIds, req.body.subject, '', req.body.html)
           .then(() => {
-            res.status(200).send({
-              status: true,
-              data: 'NEWSLETTER_SENT',
-              path: req.path,
-              timestamp: Math.trunc(Date.now() / 1000),
+            const newNewsletterHistory = new newsLetterHistoryModel({
+              subject: req.body.subject,
+              body: req.body.html,
+              fileUrl: null,
+              timeStamp: Math.trunc(Date.now() / 1000),
             });
+
+            newNewsletterHistory
+              .save()
+              .then(() => {
+                res.status(200).send({
+                  status: true,
+                  data: 'NEWSLETTER_SENT',
+                  path: req.path,
+                  timestamp: Math.trunc(Date.now() / 1000),
+                });
+              })
+              .catch(() => {
+                res.status(200).send({
+                  status: true,
+                  data: 'NEWSLETTER_SENT',
+                  path: req.path,
+                  timestamp: Math.trunc(Date.now() / 1000),
+                });
+              });
           })
           .catch((err) => {
             res.status(200).send({
@@ -258,4 +300,25 @@ export const sendNewsletter = async (req: Request, res: Response) => {
         });
       });
   }
+};
+
+export const getNewsletterHistory = async (req: Request, res: Response) => {
+  newsLetterHistoryModel
+    .find()
+    .sort({ timeStamp: -1 })
+    .then((newsletters: any) => {
+      res.status(200).send({
+        status: true,
+        data: newsletters,
+        path: req.path,
+        timestamp: Math.trunc(Date.now() / 1000),
+      });
+    }).catch((err)=>{
+      res.status(200).send({
+        status: false,
+        data: err,
+        path: req.path,
+        timestamp: Math.trunc(Date.now() / 1000),
+      });
+    })
 };

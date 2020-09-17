@@ -27,4 +27,7 @@ $.get('/get-newsletter-subscriptions', appService.getNewsletterSubscription);
 // send newsLetter
 $.post('/send-newsletter', appService.sendNewsletter);
 
+// get newsletter history
+$.get('/get-newsletter-history', appService.getNewsletterHistory);
+
 export default $;
