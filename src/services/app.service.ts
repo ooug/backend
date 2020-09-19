@@ -1,6 +1,11 @@
-import { Request, Response } from 'express';
-import { contactUsModel, newsletterModel } from '../models/app';
+import e, { Request, Response } from 'express';
+import {
+  contactUsModel,
+  newsletterModel,
+  newsLetterHistoryModel,
+} from '../models/app';
 import { sendMail } from '../utils/mailer';
+import { uploadFile } from '../utils/fileUploader';
 
 // contact us
 export const contactUs = async (req: Request, res: Response) => {
@@ -130,7 +135,6 @@ export const newsletterUnsubscribe = async (req: Request, res: Response) => {
           });
         })
         .catch((err) => {
-          console.log(err);
           res.status(200).send({
             status: false,
             data: 'ERROR_OCCURRED',
@@ -148,4 +152,173 @@ export const newsletterUnsubscribe = async (req: Request, res: Response) => {
       });
     }
   });
+};
+
+// getting all newsletter subscription
+export const getNewsletterSubscription = async (
+  req: Request,
+  res: Response
+) => {
+  newsletterModel
+    .find()
+    .then((subscriptions) => {
+      res.status(200).send({
+        status: true,
+        data: subscriptions,
+        path: req.path,
+        timestamp: Math.trunc(Date.now() / 1000),
+      });
+    })
+    .catch((err) => {
+      res.status(200).send({
+        status: false,
+        data: err,
+        path: req.path,
+        timestamp: Math.trunc(Date.now() / 1000),
+      });
+    });
+};
+
+// send newsletter to all subscriptions
+export const sendNewsletter = async (req: Request, res: Response) => {
+  if (req.body.file) {
+    // handle file attachment here
+    uploadFile(req.body.file)
+      .then((url: any) => {
+        newsletterModel
+          .find()
+          .then((subscriptions) => {
+            const emailIds = subscriptions.map((e: any) => {
+              return e.email;
+            });
+            sendMail(emailIds, req.body.subject, '', req.body.html, [
+              { path: url },
+            ])
+              .then(() => {
+                const newNewsletterHistory = new newsLetterHistoryModel({
+                  subject: req.body.subject,
+                  body: req.body.html,
+                  fileUrl: url,
+                  timeStamp: Math.trunc(Date.now() / 1000),
+                });
+
+                newNewsletterHistory
+                  .save()
+                  .then(() => {
+                    res.status(200).send({
+                      status: true,
+                      data: 'NEWSLETTER_SENT',
+                      path: req.path,
+                      timestamp: Math.trunc(Date.now() / 1000),
+                    });
+                  })
+                  .catch(() => {
+                    res.status(200).send({
+                      status: true,
+                      data: 'NEWSLETTER_SENT',
+                      path: req.path,
+                      timestamp: Math.trunc(Date.now() / 1000),
+                    });
+                  });
+              })
+              .catch((err) => {
+                res.status(200).send({
+                  status: false,
+                  data: err,
+                  path: req.path,
+                  timestamp: Math.trunc(Date.now() / 1000),
+                });
+              });
+          })
+          .catch((err) => {
+            res.status(200).send({
+              status: false,
+              data: err,
+              path: req.path,
+              timestamp: Math.trunc(Date.now() / 1000),
+            });
+          });
+      })
+      .catch((err) => {
+        res.status(200).send({
+          status: false,
+          data: err,
+          path: req.path,
+          timestamp: Math.trunc(Date.now() / 1000),
+        });
+      });
+  } else {
+    newsletterModel
+      .find()
+      .then((subscriptions) => {
+        const emailIds = subscriptions.map((e: any) => {
+          return e.email;
+        });
+        sendMail(emailIds, req.body.subject, '', req.body.html)
+          .then(() => {
+            const newNewsletterHistory = new newsLetterHistoryModel({
+              subject: req.body.subject,
+              body: req.body.html,
+              fileUrl: null,
+              timeStamp: Math.trunc(Date.now() / 1000),
+            });
+
+            newNewsletterHistory
+              .save()
+              .then(() => {
+                res.status(200).send({
+                  status: true,
+                  data: 'NEWSLETTER_SENT',
+                  path: req.path,
+                  timestamp: Math.trunc(Date.now() / 1000),
+                });
+              })
+              .catch(() => {
+                res.status(200).send({
+                  status: true,
+                  data: 'NEWSLETTER_SENT',
+                  path: req.path,
+                  timestamp: Math.trunc(Date.now() / 1000),
+                });
+              });
+          })
+          .catch((err) => {
+            res.status(200).send({
+              status: false,
+              data: err,
+              path: req.path,
+              timestamp: Math.trunc(Date.now() / 1000),
+            });
+          });
+      })
+      .catch((err) => {
+        res.status(200).send({
+          status: false,
+          data: err,
+          path: req.path,
+          timestamp: Math.trunc(Date.now() / 1000),
+        });
+      });
+  }
+};
+
+export const getNewsletterHistory = async (req: Request, res: Response) => {
+  newsLetterHistoryModel
+    .find()
+    .sort({ timeStamp: -1 })
+    .then((newsletters: any) => {
+      res.status(200).send({
+        status: true,
+        data: newsletters,
+        path: req.path,
+        timestamp: Math.trunc(Date.now() / 1000),
+      });
+    }).catch((err)=>{
+      res.status(200).send({
+        status: false,
+        data: err,
+        path: req.path,
+        timestamp: Math.trunc(Date.now() / 1000),
+      });
+    })
 };
