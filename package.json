@@ -8,7 +8,7 @@
   "license": "MIT",
   "private": false,
   "engines": {
-    "node": "12"
+    "node": "14"
   },
   "scripts": {
     "start": "node dist/index.js",

@@ -1,0 +1,16 @@
+{
+  "recommendations": [
+    "toba.vsfire",
+    "jsayol.firebase-explorer",
+    "mongodb.mongodb-vscode",
+    "redhat.vscode-yaml",
+    "dbaeumer.vscode-eslint",
+    "eamodio.gitlens",
+    "xabikos.javascriptsnippets",
+    "esbenp.prettier-vscode",
+    "humao.rest-client",
+    "gruntfuggly.todo-tree",
+    "streetsidesoftware.code-spell-checker",
+    "coenraads.bracket-pair-colorizer"
+  ]
+}
