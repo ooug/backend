@@ -23,7 +23,7 @@ if (conf.error) throw new Error(conf.error.message);
 
 export const bootstrap = async function () {
   const $: Express = express();
-  const PORT = process.env.PORT || 8080;
+  const PORT = process.env.PORT || 3000;
 
   // middleware
   $.disable('etag');
@@ -78,7 +78,7 @@ export const bootstrap = async function () {
 };
 
 // db connection.connect(
-connect(process.env._DB_URL as any, {
+connect(process.env.DB_URL as string, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })

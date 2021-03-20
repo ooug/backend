@@ -9,11 +9,11 @@ steps:
     entrypoint: yarn
     args: ['create-env']
     env:
-      - '_DB_URL=${_DB_URL}'
-      - '_EMAIL_HOST=${_EMAIL_HOST}'
-      - '_EMAIL_PORT=${_EMAIL_PORT}'
-      - '_EMAIL_USER=${_EMAIL_USER}'
-      - '_EMAIL_PASSWORD=${_EMAIL_PASSWORD}'
+      - 'DB_URL=${_DB_URL}'
+      - 'EMAIL_HOST=${_EMAIL_HOST}'
+      - 'EMAIL_PORT=${_EMAIL_PORT}'
+      - 'EMAIL_USER=${_EMAIL_USER}'
+      - 'EMAIL_PASSWORD=${_EMAIL_PASSWORD}'
   - name: 'gcr.io/cloud-builders/gcloud' # deploying the app
     args: ['app', 'deploy']
 timeout: '1600s'
