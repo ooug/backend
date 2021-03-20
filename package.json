@@ -52,7 +52,7 @@
     "@types/mongoose": "^5.7.21",
     "@types/morgan": "^1.9.0",
     "@types/nodemailer": "^6.4.0",
-    "@types/passport": "^1.0.3",
+    "@types/passport": "^1.0.6",
     "@types/passport-jwt": "^3.0.3",
     "@types/passport-local": "^1.0.33",
     "copyfiles": "^2.2.0",
