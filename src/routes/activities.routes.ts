@@ -1,5 +1,5 @@
 import { Router, RouterOptions } from 'express';
-import { activitiesService } from '../../services'
+import { activitiesService } from '../services'
 import { Request, Response, NextFunction } from 'express';
 import {default as Multer} from 'multer';
 

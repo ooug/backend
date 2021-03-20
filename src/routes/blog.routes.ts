@@ -1,5 +1,5 @@
 import { Router, RouterOptions } from 'express';
-import { blogService }  from '../../services';
+import { blogService }  from '../services';
 
 const options = {
   strict: true,

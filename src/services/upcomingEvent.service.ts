@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { upcomingEventModel } from '../models/upcomingEvent';
+import { upcomingEventModel } from '../models/upcoming-event.model';
 
 // add upcoming event
 export const addUpcomingEvent = async (req: Request, res: Response) => {

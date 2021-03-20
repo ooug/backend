@@ -3,9 +3,9 @@ import {
   contactUsModel,
   newsletterModel,
   newsLetterHistoryModel,
-} from '../models/app';
-import { sendMail } from '../utils/mailer';
-import { uploadFile } from '../utils/fileUploader';
+} from '../models';
+import { sendMail } from '../utils/mailer.util';
+import { uploadFile } from '../utils/file-uploader.util';
 
 // contact us
 export const contactUs = async (req: Request, res: Response) => {

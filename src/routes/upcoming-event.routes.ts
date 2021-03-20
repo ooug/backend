@@ -1,5 +1,5 @@
 import { Router, RouterOptions } from 'express';
-import { upcomingEventService } from '../../services';
+import { upcomingEventService } from '../services';
 
 const options = {
   strict: true,

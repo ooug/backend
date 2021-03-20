@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
-import { userModel as User } from '../models/user';
+import { userModel as User } from '../models';
 import { default as passport } from 'passport';
 import { default as jwt } from 'jsonwebtoken';
-import { sendOTP } from '../utils/sendOTP';
-import { sendMail } from '../utils/mailer';
+import { sendOTP } from '../utils';
+import { sendMail } from '../utils';
 
 // signing up
 export const signup = async (req: Request, res: Response) => {

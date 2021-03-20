@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { imageSlider, eventDetail } from '../models/activities';
+import { imageSlider, eventDetail } from '../models/activities.model';
 import { Storage } from '@google-cloud/storage';
 import * as path from 'path';
 import { error } from '../utils';

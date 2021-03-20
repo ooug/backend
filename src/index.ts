@@ -16,7 +16,7 @@ import { textContentTypeMiddleware } from './middlewares';
 import { connect } from 'mongoose';
 import { default as passport } from 'passport';
 
-import './middlewares/passport-config';
+import './middlewares/passport-config.middleware';
 
 const conf = config();
 if (conf.error) throw new Error(conf.error.message);
