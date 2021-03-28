@@ -3,6 +3,7 @@
     "ESNEXT",
     "Odisha",
     "Signup",
+    "Techbhukkads",
     "Uploader",
     "appspot",
     "clusteronsiindia",
@@ -18,6 +19,7 @@
     "middlewares",
     "mongodb",
     "ooug",
+    "originalname",
     "prebuild",
     "printenv",
     "readonly",
@@ -28,5 +30,9 @@
     "tslib",
     "typechecking"
   ],
-  "files.autoSave": "onFocusChange"
+  "files.autoSave": "onFocusChange",
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "js/ts.implicitProjectConfig.checkJs": true,
+  "js/ts.implicitProjectConfig.strictNullChecks": true
 }

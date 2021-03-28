@@ -1,21 +1,19 @@
 # Backend
 
-ooug backend using typescript and express with mongodb
+ooug backend using javascript and express with mongodb
 
 # Setup
 
 ```
 node version v12.16.1 LTS
-typescript version 4.0.2
 
 ```
 
 # Installation
 
 ```
-  npm i -g yarn
-  yarn
-  yarn local
+  npm install
+  npm run dev
 
 ```
 

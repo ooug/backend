@@ -1,4 +1,4 @@
-import nodemailer from 'nodemailer';
+import nodemailer from 'nodemailer'
 
 const transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',
@@ -6,16 +6,27 @@ const transporter = nodemailer.createTransport({
   secure: true, // true for 465, false for other ports
   auth: {
     user: 'noreply.mictesting@gmail.com', // generated ethereal user
-    pass: 'qwerty@1234', // generated ethereal password
-  },
-});
+    pass: 'qwerty@1234' // generated ethereal password
+  }
+})
 
+/**
+ * send mail
+ * @function
+ * @name sendMail
+ * @param {string | string[]} to
+ * @param {string} subject
+ * @param {string} text
+ * @param {string} html
+ * @param {{path:string}[]} attachment
+ * @returns {Promise<*>}
+ */
 export const sendMail = (
-  to: string | string[],
-  subject: string,
-  text: string='',
-  html: string='',
-  attachment: {path:string}[]=[]
+  to,
+  subject,
+  text = '',
+  html = '',
+  attachment = []
 ) => {
   return new Promise((resolve, reject) => {
     transporter
@@ -29,10 +40,10 @@ export const sendMail = (
         attachments: attachment
       })
       .then((data) => {
-        resolve(data);
+        resolve(data)
       })
       .catch((err) => {
-        reject(err);
-      });
-  });
-};
+        reject(err)
+      })
+  })
+}

@@ -1,4 +1,4 @@
-import { default as mongoose } from 'mongoose';
+import mongoose from 'mongoose'
 
 // creating contact form schema
 const contactUsSchema = new mongoose.Schema({
@@ -6,30 +6,31 @@ const contactUsSchema = new mongoose.Schema({
   email: { type: String, required: true },
   subject: { type: String, required: true },
   message: { type: String, required: true },
-  timeStamp: { type: String, required: true },
-});
+  timeStamp: { type: String, required: true }
+})
 
 // creating newsletter schema
 const newsletterSchema = new mongoose.Schema({
   email: { type: String, required: true },
-  timeStamp: { type: String, required: true },
-});
+  timeStamp: { type: String, required: true }
+})
 
 const newsLetterHistorySchema = new mongoose.Schema({
+  email: { type: String, required: true },
   subject: { type: String, required: true },
   body: { type: String, required: true },
   fileUrl: { type: String, default: null },
-  timeStamp: { type: String, required: true },
-});
+  timeStamp: { type: String, required: true }
+})
 
 // exporting contactUsModel
-export const contactUsModel = mongoose.model('contactUs', contactUsSchema);
+export const ContactUsModel = mongoose.model('contacts', contactUsSchema)
 
 // exporting newsletterModel
-export const newsletterModel = mongoose.model('newsletter', newsletterSchema);
+export const NewsletterModel = mongoose.model('newsletters', newsletterSchema)
 
 // exporting newsLetterHistoryModel
-export const newsLetterHistoryModel = mongoose.model(
-  'newsletter_history',
+export const NewsLetterHistoryModel = mongoose.model(
+  'newsletterHistories',
   newsLetterHistorySchema
-);
+)

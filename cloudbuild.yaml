@@ -2,9 +2,6 @@ steps:
   - name: node:12 # Installing dependencies
     entrypoint: yarn
     args: ['install']
-  - name: node:12 # Running build
-    entrypoint: yarn
-    args: ['build']
   - name: node:12 # Creating local .env file
     entrypoint: yarn
     args: ['create-env']
