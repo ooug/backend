@@ -35,7 +35,7 @@
     "dotenv": "^8.2.0",
     "ejs": "^3.1.2",
     "express": "^5.0.0-alpha.8",
-    "firebase": "^7.15.1",
+    "firebase": "^8.3.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.2",
     "morgan": "^1.10.0",
