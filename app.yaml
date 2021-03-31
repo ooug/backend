@@ -22,4 +22,4 @@ automatic_scaling:
 
 # environment
 env_variables:
-  TEAM: "OOUG"
+  TEAM: 'OOUG'

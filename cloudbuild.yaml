@@ -1,10 +1,13 @@
 steps:
+  - name: node:12 # Disabling hooks
+    entrypoint: npm
+    args: ['ci', '--only=production', '--ignore-scripts']
   - name: node:12 # Installing dependencies
-    entrypoint: yarn
-    args: ['install']
+    entrypoint: npm
+    args: ['run', 'install']
   - name: node:12 # Creating local .env file
-    entrypoint: yarn
-    args: ['create-env']
+    entrypoint: npm
+    args: ['run', 'create-env']
     env:
       - 'DB_URL=${_DB_URL}'
       - 'EMAIL_HOST=${_EMAIL_HOST}'
