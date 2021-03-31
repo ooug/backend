@@ -4,7 +4,7 @@ steps:
     args: ['ci', '--only=production', '--ignore-scripts']
   - name: node:12 # Installing dependencies
     entrypoint: npm
-    args: ['run', 'install']
+    args: ['install']
   - name: node:12 # Creating local .env file
     entrypoint: npm
     args: ['run', 'create-env']
