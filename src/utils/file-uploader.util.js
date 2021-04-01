@@ -1,11 +1,6 @@
-import { join } from 'path'
-import { cwd } from 'process'
 import { Storage } from '@google-cloud/storage'
 
-const storage = new Storage({
-  projectId: 'test-d02ef',
-  keyFilename: join(cwd(), '../assets/firebase_config/test-d02ef.json')
-})
+const storage = new Storage()
 const bucket = storage.bucket('gs://test-d02ef.appspot.com')
 
 /**

@@ -1,15 +1,10 @@
-import { join } from 'path'
-import { cwd } from 'process'
 // eslint-disable-next-line no-unused-vars
 import e from 'express'
 import { Storage } from '@google-cloud/storage'
 
 import { ImageSlider, EventDetail } from '../models/index.js'
 
-const storage = new Storage({
-  projectId: 'ooug-cc348',
-  keyFilename: join(cwd(), '../assets/activities/ooug-cc348.json')
-})
+const storage = new Storage()
 const bucket = storage.bucket('gs://ooug-cc348.appspot.com')
 
 /**
