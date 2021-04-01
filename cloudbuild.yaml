@@ -1,10 +1,7 @@
 steps:
-  - name: node:12 # Disabling hooks
-    entrypoint: npm
-    args: ['ci', '--only=production', '--ignore-scripts']
   - name: node:12 # Installing dependencies
-    entrypoint: npm
-    args: ['install']
+    # entrypoint: npm
+    args: ['npm', 'run', 'setup']
   - name: node:12 # Creating local .env file
     entrypoint: npm
     args: ['run', 'create-env']

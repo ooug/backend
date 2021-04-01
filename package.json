@@ -18,7 +18,8 @@
     "create-env": "printenv > .env",
     "format": "prettier --write src",
     "lint": "eslint . --fix",
-    "prepare": "husky install"
+    "setup": "BUILD_SKIP=1 npm install",
+    "prepare": "node ./scripts/skip.js || husky install"
   },
   "nodemonConfig": {
     "watch": [
