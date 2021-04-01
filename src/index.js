@@ -6,8 +6,6 @@ import { config } from 'dotenv'
 import express from 'express'
 import mongoose from 'mongoose'
 import passport from 'passport'
-// Imports the Google Cloud client library.
-import { Storage } from '@google-cloud/storage'
 
 import router from './routes/index.js'
 import { textContentTypeMiddleware } from './middlewares/index.js'
@@ -88,22 +86,3 @@ connect(process.env.DB_URL || '', {
     console.log('DB Error!')
     console.log(err)
   })
-
-// Instantiates a client. If you don't specify credentials when constructing
-// the client, the client library will look for credentials in the
-// environment.
-const storage = new Storage()
-// Makes an authenticated API request.
-const listBuckets = async () => {
-  try {
-    const results = await storage.getBuckets()
-    const [buckets] = results
-    console.log('Buckets:')
-    buckets.forEach((bucket) => {
-      console.log(bucket.name)
-    })
-  } catch (err) {
-    console.error('ERROR:', err)
-  }
-}
-listBuckets()
