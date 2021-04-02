@@ -8,8 +8,8 @@ import upcomingEventRoutes from './upcoming-event.routes.js'
 import authRoutes from './auth.routes.js'
 import blogRoutes from './blog.routes.js'
 
-// Services
-import { user } from '../services/index.js'
+// Controller
+import { user } from '../controllers/index.js'
 
 /**
  * @type {e.RouterOptions}

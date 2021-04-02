@@ -15,7 +15,7 @@ import {
   updateEventWithoutImage,
   updateUpcomingWithImage,
   updateUpcomingWithoutImage
-} from '../services/index.js'
+} from '../controllers/index.js'
 
 /**
  * @type {e.RouterOptions}

@@ -1,5 +1,5 @@
 import e from 'express'
-import { login, resetPassword, sendOtp, signup } from '../services/index.js'
+import { login, resetPassword, sendOtp, signup } from '../controllers/index.js'
 
 /**
  * @type {e.RouterOptions}
