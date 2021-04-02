@@ -17,7 +17,7 @@
     "deploy": "gcloud app deploy",
     "create-env": "printenv > .env",
     "format": "prettier --write src",
-    "lint": "eslint . --fix",
+    "lint": "eslint . --fix --cache",
     "setup": "BUILD_SKIP=1 npm install",
     "prepare": "node ./scripts/skip.js || husky install"
   },
