@@ -12,7 +12,7 @@
 # limitations under the License.
 #
 # [START runtime]
-runtime: nodejs12
+runtime: nodejs14
 
 # scaling
 automatic_scaling:

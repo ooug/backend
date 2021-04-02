@@ -9,7 +9,7 @@
   "private": false,
   "type": "module",
   "engines": {
-    "node": "14"
+    "node": "14.x"
   },
   "scripts": {
     "start": "node src/index.js",
