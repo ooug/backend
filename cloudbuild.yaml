@@ -1,8 +1,8 @@
 steps:
-  - name: node:12 # Installing dependencies
+  - name: node:14 # Installing dependencies
     # entrypoint: npm
     args: ['npm', 'run', 'setup']
-  - name: node:12 # Creating local .env file
+  - name: node:14 # Creating local .env file
     entrypoint: npm
     args: ['run', 'create-env']
     env:

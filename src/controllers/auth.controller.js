@@ -3,7 +3,12 @@ import e from 'express'
 import passport from 'passport'
 import jwt from 'jsonwebtoken'
 
-import { sendOTP, sendMail } from '../utils/index.js'
+import {
+  sendOTP,
+  sendMail,
+  JWT_SECRETE,
+  JWT_EXPIRE_IN
+} from '../utils/index.js'
 import { UserModel as User } from '../models/index.js'
 
 /**
@@ -70,9 +75,9 @@ export const login = async (req, res) => {
     }
 
     const options = {
-      expiresIn: 900
+      expiresIn: JWT_EXPIRE_IN
     }
-    jwt.sign(payload, 'ooug2011', options, (err, token) => {
+    jwt.sign(payload, JWT_SECRETE, options, (err, token) => {
       if (err) throw err
       res.status(200).send({
         status: true,

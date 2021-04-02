@@ -3,6 +3,7 @@ import { Strategy as LocalStrategy } from 'passport-local'
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt'
 
 import { UserModel as User } from '../models/index.js'
+import { JWT_SECRETE } from '../utils/constant.util.js'
 
 // configuring local strategy
 passport.use(
@@ -40,7 +41,7 @@ passport.use(
   new JwtStrategy(
     {
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: 'ooug2011'
+      secretOrKey: JWT_SECRETE
     },
     (jwtPayload, done) => {
       User.findOne({ _id: jwtPayload.sub })

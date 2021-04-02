@@ -5,8 +5,8 @@ const transporter = nodemailer.createTransport({
   port: 465,
   secure: true, // true for 465, false for other ports
   auth: {
-    user: 'noreply.mictesting@gmail.com', // generated ethereal user
-    pass: 'qwerty@1234' // generated ethereal password
+    user: 'noreply.mictesting@gmail.com',
+    pass: 'qwerty@1234'
   }
 })
 
@@ -18,7 +18,7 @@ const transporter = nodemailer.createTransport({
  * @param {string} subject
  * @param {string} text
  * @param {string} html
- * @param {{path:string}[]} attachment
+ * @param {{path:string}[]} attachments
  * @returns {Promise<*>}
  */
 export const sendMail = (
@@ -26,18 +26,18 @@ export const sendMail = (
   subject,
   text = '',
   html = '',
-  attachment = []
+  attachments = []
 ) => {
   return new Promise((resolve, reject) => {
     transporter
       .sendMail({
         from:
           '"Odisha Oracle Users Group" <noreply.avinashvidyarthi@gmail.com>', // sender address
-        to: to, // list of receivers
-        subject: subject, // Subject line
-        text: text, // plain text body
-        html: html,
-        attachments: attachment
+        to, // list of receivers
+        subject, // Subject line
+        text, // plain text body
+        html,
+        attachments
       })
       .then((data) => {
         resolve(data)

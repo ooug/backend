@@ -33,3 +33,12 @@ export const EMAIL_USER = env.EMAIL_USER || ''
  * @type {string}
  */
 export const EMAIL_PASSWORD = env.EMAIL_PASSWORD || ''
+
+/**
+ * @type {string}
+ */
+export const JWT_SECRETE = env.JWT_SECRETE || ''
+/**
+ * @type {string}
+ */
+export const JWT_EXPIRE_IN = env.JWT_EXPIRE_IN || ''
