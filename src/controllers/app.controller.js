@@ -5,8 +5,8 @@ import {
   ContactUsModel,
   NewsletterModel,
   NewsLetterHistoryModel
-} from '../models/index.js'
-import { sendMail, uploadFile } from '../utils/index.js'
+} from '../models/index'
+import { sendMail, uploadFile } from '../utils/index'
 
 /**
  * contact us

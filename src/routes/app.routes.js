@@ -7,7 +7,7 @@ import {
   getNewsletterSubscription,
   sendNewsletter,
   getNewsletterHistory
-} from '../services/index.js'
+} from '../controllers'
 
 /**
  * @type {e.RouterOptions}

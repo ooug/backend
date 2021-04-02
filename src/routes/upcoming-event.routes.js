@@ -7,7 +7,7 @@ import {
   getRegistrationsOfEvent,
   registerForEvent,
   updateOneUpcomingEvent
-} from '../services/index.js'
+} from '../controllers'
 
 /**
  * @type {e.RouterOptions}

@@ -1,2 +1,2 @@
-export * from './mailer.service.js'
-export * from './sms.service.js'
+export * from './mailer.service'
+export * from './sms.service'

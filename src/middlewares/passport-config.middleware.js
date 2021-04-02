@@ -2,7 +2,7 @@ import passport from 'passport'
 import { Strategy as LocalStrategy } from 'passport-local'
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt'
 
-import { UserModel as User } from '../models/index.js'
+import { UserModel as User } from '../models/index'
 
 // configuring local strategy
 passport.use(

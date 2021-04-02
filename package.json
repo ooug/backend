@@ -7,19 +7,22 @@
   "author": "santosh mahto <mahtos480@gmail.com>",
   "license": "MIT",
   "private": false,
-  "type": "module",
   "engines": {
     "node": ">=12"
   },
   "scripts": {
+    "prebuild": "rm -rf dist && mkdir dist",
+    "build": "babel -d ./dist ./src -s",
+    "debug": "node --debug ./dist/index.js",
     "start": "node src/index.js",
-    "dev": "cross-env NODE_ENV=local nodemon src/index.js",
+    "dev": "cross-env NODE_ENV=local nodemon --exec babel-node src/index.js",
     "deploy": "gcloud app deploy",
     "create-env": "printenv > .env",
     "format": "prettier --write src",
-    "lint": "eslint . --fix --cache",
+    "lint": "eslint src --fix --cache",
     "setup": "BUILD_SKIP=1 npm install",
-    "prepare": "node ./scripts/skip.js || husky install"
+    "prepare": "node ./scripts/skip.js || husky install",
+    "test": "jest src"
   },
   "nodemonConfig": {
     "watch": [
@@ -47,9 +50,14 @@
     "passport-local": "^1.0.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.13.14",
+    "@babel/core": "^7.13.14",
+    "@babel/node": "^7.13.13",
+    "@babel/preset-env": "^7.13.12",
     "@google-cloud/storage": "^5.8.2",
     "@types/cors": "^2.8.6",
     "@types/ejs": "^3.0.3",
+    "@types/jest": "^26.0.22",
     "@types/mongoose": "^5.7.21",
     "@types/morgan": "^1.9.0",
     "@types/multer": "^1.4.5",
@@ -57,12 +65,14 @@
     "@types/passport": "^1.0.3",
     "@types/passport-jwt": "^3.0.3",
     "@types/passport-local": "^1.0.33",
+    "babel-jest": "^26.6.3",
     "eslint": "^7.23.0",
     "eslint-config-standard": "^16.0.2",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.3.1",
     "husky": "^6.0.0",
+    "jest": "^26.6.3",
     "nodemon": "^2.0.3",
     "prettier": "^2.2.1"
   }

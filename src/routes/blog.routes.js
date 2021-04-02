@@ -7,7 +7,7 @@ import {
   ViewOneBlog,
   LikesCountInBlog,
   ViewAllBlog
-} from '../services/index.js'
+} from '../controllers'
 
 /**
  * @type {e.RouterOptions}

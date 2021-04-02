@@ -1,4 +1,4 @@
-import { sendMail } from './mailer.util.js'
+import { sendMail } from './mailer.util'
 
 /**
  *

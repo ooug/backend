@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import e from 'express'
 
-import { UpcomingEventModel } from '../models/index.js'
+import { UpcomingEventModel } from '../models/index'
 
 /**
  * add upcoming event

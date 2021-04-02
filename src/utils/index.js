@@ -1,7 +1,7 @@
-export * from './file-uploader.util.js'
-export * from './mailer.util.js'
-export * from './send-otp.util.js'
-export * from './constant.util.js'
+export * from './file-uploader.util'
+export * from './mailer.util'
+export * from './send-otp.util'
+export * from './constant.util'
 
 /**
  * @param {*} data

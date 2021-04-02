@@ -3,8 +3,8 @@ import e from 'express'
 import passport from 'passport'
 import jwt from 'jsonwebtoken'
 
-import { sendOTP, sendMail } from '../utils/index.js'
-import { UserModel as User } from '../models/index.js'
+import { sendOTP, sendMail } from '../utils/index'
+import { UserModel as User } from '../models/index'
 
 /**
  * signing up

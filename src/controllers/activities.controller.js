@@ -2,7 +2,7 @@
 import e from 'express'
 import { Storage } from '@google-cloud/storage'
 
-import { ImageSlider, EventDetail } from '../models/index.js'
+import { ImageSlider, EventDetail } from '../models/index'
 
 const storage = new Storage()
 const bucket = storage.bucket('gs://ooug-cc348.appspot.com')

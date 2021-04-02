@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import e from 'express'
 
-import { BlogModel } from '../models/index.js'
+import { BlogModel } from '../models/index'
 
 /**
  * Add New blog

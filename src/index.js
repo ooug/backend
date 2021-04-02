@@ -7,10 +7,10 @@ import express from 'express'
 import mongoose from 'mongoose'
 import passport from 'passport'
 
-import router from './routes/index.js'
-import { textContentTypeMiddleware } from './middlewares/index.js'
+import router from './routes/index'
+import { textContentTypeMiddleware } from './middlewares/index'
 
-import './middlewares/passport-config.middleware.js'
+import './middlewares/passport-config.middleware'
 
 const { urlencoded, static: serve, json } = express
 const { connect } = mongoose

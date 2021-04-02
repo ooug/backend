@@ -2,14 +2,14 @@ import e from 'express'
 import passport from 'passport'
 
 // Routes
-import activitiesRoutes from './activities.routes.js'
-import appRoutes from './app.routes.js'
-import upcomingEventRoutes from './upcoming-event.routes.js'
-import authRoutes from './auth.routes.js'
-import blogRoutes from './blog.routes.js'
+import activitiesRoutes from './activities.routes'
+import appRoutes from './app.routes'
+import upcomingEventRoutes from './upcoming-event.routes'
+import authRoutes from './auth.routes'
+import blogRoutes from './blog.routes'
 
 // Services
-import { user } from '../services/index.js'
+import { user } from '../controllers'
 
 /**
  * @type {e.RouterOptions}
