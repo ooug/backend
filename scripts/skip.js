@@ -1,3 +1,4 @@
+console.info(process.env)
 if (process.env.BUILD_SKIP) {
   process.exit(0)
 } else {
