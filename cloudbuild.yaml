@@ -6,11 +6,16 @@ steps:
     entrypoint: npm
     args: ['run', 'create-env']
     env:
+      - 'NAME=${_NAME}'
+      - 'MAIN_WEB_URL=${_MAIN_WEB_URL}'
+      - 'ADMIN_WEB_URL=${_ADMIN_WEB_URL}'
       - 'DB_URL=${_DB_URL}'
       - 'EMAIL_HOST=${_EMAIL_HOST}'
       - 'EMAIL_PORT=${_EMAIL_PORT}'
       - 'EMAIL_USER=${_EMAIL_USER}'
       - 'EMAIL_PASSWORD=${_EMAIL_PASSWORD}'
+      - 'JWT_SECRETE=${_JWT_SECRETE}'
+      - 'JWT_EXPIRE_IN=${_JWT_EXPIRE_IN}'
   - name: 'gcr.io/cloud-builders/gcloud' # deploying the app
     args: ['app', 'deploy']
 timeout: '1600s'
