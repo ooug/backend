@@ -1,8 +1,8 @@
+import {} from './env.js'
 import { join } from 'path'
 import { cwd } from 'process'
 import cors from 'cors'
 import morgan from 'morgan'
-import { config } from 'dotenv'
 import express from 'express'
 import mongoose from 'mongoose'
 import passport from 'passport'
@@ -14,9 +14,6 @@ import './middlewares/passport-config.middleware.js'
 
 const { urlencoded, static: serve, json } = express
 const { connect } = mongoose
-
-const conf = config()
-if (conf.error) throw new Error(conf.error.message)
 
 export const bootstrap = async function () {
   const $ = express()
