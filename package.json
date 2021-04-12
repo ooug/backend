@@ -57,7 +57,7 @@
     "@types/passport": "^1.0.3",
     "@types/passport-jwt": "^3.0.3",
     "@types/passport-local": "^1.0.33",
-    "eslint": "^7.23.0",
+    "eslint": "^7.24.0",
     "eslint-config-standard": "^16.0.2",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-node": "^11.1.0",
