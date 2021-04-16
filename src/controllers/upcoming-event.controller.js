@@ -149,7 +149,7 @@ export const registerForEvent = async (req, res) => {
           })
         } else {
           // checking if email registered
-          const user = event.Registrations.find(
+          const user = event.registrations.find(
             /**
              * @param {*} e
              */
@@ -168,7 +168,7 @@ export const registerForEvent = async (req, res) => {
             })
           } else {
             // adding to registrations array
-            event.Registrations.push({
+            event.registrations.push({
               name: req.body.name,
               roll: req.body.roll,
               email: req.body.email,
