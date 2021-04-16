@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 // creating upcoming event model
 const upcomingEventSchema = new mongoose.Schema({
-  Image: {
+  image: {
     host: { type: String },
     path: { type: String, required: true }
   },
@@ -10,14 +10,14 @@ const upcomingEventSchema = new mongoose.Schema({
   shortDescription: { type: String, required: true },
   longDescription: { type: String, required: true },
   enableRegistration: { type: Boolean, required: true },
-  Date: {
+  date: {
     day: { type: String, required: true },
     month: { type: String, required: true },
     year: { type: String, required: true }
   },
   time: { type: String, required: true },
   venue: { type: String, required: true },
-  Registrations: [
+  registrations: [
     {
       name: { type: String, required: true },
       roll: { type: String, required: true },
