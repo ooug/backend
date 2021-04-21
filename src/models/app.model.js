@@ -16,7 +16,6 @@ const newsletterSchema = new mongoose.Schema({
 })
 
 const newsLetterHistorySchema = new mongoose.Schema({
-  email: { type: String, required: true },
   subject: { type: String, required: true },
   body: { type: String, required: true },
   fileUrl: { type: String, default: null },

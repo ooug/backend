@@ -106,3 +106,7 @@ dist
 # ide
 .idea
 .DS_Store
+
+
+#googleAccountKey
+googleAccountKeys.json
