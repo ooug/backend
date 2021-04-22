@@ -109,3 +109,6 @@ dist
 
 # mongoDB vscode extention playground
 *.mongodb
+
+# google account key
+googleAccountKeys.json
