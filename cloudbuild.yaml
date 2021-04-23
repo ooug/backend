@@ -12,6 +12,7 @@ steps:
       - 'DB_URL=${_DB_URL}'
       - 'EMAIL_HOST=${_EMAIL_HOST}'
       - 'EMAIL_PORT=${_EMAIL_PORT}'
+      - 'EMAIL_SECURE=${_EMAIL_SECURE}'
       - 'EMAIL_USER=${_EMAIL_USER}'
       - 'EMAIL_PASSWORD=${_EMAIL_PASSWORD}'
       - 'JWT_SECRETE=${_JWT_SECRETE}'
