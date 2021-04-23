@@ -1,12 +1,12 @@
 import nodemailer from 'nodemailer'
 
 const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 465,
-  secure: true, // true for 465, false for other ports
+  host: String(process.env.EMAIL_HOST),
+  port: Number(process.env.EMAIL_PORT),
+  secure: Boolean(process.env.EMAIL_SECURE || true), // true for 465, false for other ports
   auth: {
-    user: 'noreply.mictesting@gmail.com',
-    pass: 'qwerty@1234'
+    user: String(process.env.EMAIL_USER),
+    pass: String(process.env.EMAIL_PASSWORD)
   }
 })
 
@@ -32,7 +32,8 @@ export const sendMail = (
     transporter
       .sendMail({
         from:
-          '"Odisha Oracle Users Group" <noreply.avinashvidyarthi@gmail.com>', // sender address
+          // eslint-disable-next-line quotes
+          `"Odisha Oracle Users Group" <${process.env.EMAIL_USER}>`, // sender address
         to, // list of receivers
         subject, // Subject line
         text, // plain text body

@@ -106,3 +106,9 @@ dist
 # ide
 .idea
 .DS_Store
+
+# mongoDB vscode extention playground
+*.mongodb
+
+# google account key
+googleAccountKeys.json
