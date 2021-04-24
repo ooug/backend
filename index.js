@@ -1,6 +1,4 @@
 import {} from './env.js'
-import { join } from 'path'
-import { cwd } from 'process'
 import cors from 'cors'
 import morgan from 'morgan'
 import express from 'express'
@@ -12,7 +10,7 @@ import { textContentTypeMiddleware } from './middlewares/index.js'
 
 import './middlewares/passport-config.middleware.js'
 
-const { urlencoded, static: serve, json } = express
+const { urlencoded, json } = express
 const { connect } = mongoose
 
 export const bootstrap = async function () {
@@ -26,7 +24,6 @@ export const bootstrap = async function () {
   $.use(json({ limit: '10mb' }))
   $.use(morgan('dev'))
   $.use(urlencoded({ extended: false }))
-  $.use(serve(join(cwd(), 'public')))
   $.use(passport.initialize())
 
   // custom middleware
