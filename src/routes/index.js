@@ -1,6 +1,3 @@
-import e from 'express'
-import passport from 'passport'
-
 // Routes
 import activitiesRoutes from './activities.routes.js'
 import appRoutes from './app.routes.js'
@@ -10,6 +7,9 @@ import blogRoutes from './blog.routes.js'
 
 // Controller
 import { user } from '../controllers/index.js'
+
+const e = require('express')
+const passport = require('passport')
 
 /**
  * @type {e.RouterOptions}
@@ -51,4 +51,4 @@ $.get(
   }
 )
 
-export default $
+module.exports = $
