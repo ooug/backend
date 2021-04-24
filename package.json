@@ -47,7 +47,7 @@
     "passport-local": "^1.0.0"
   },
   "devDependencies": {
-    "@google-cloud/storage": "^5.8.2",
+    "@google-cloud/storage": "^5.8.4",
     "@types/cors": "^2.8.6",
     "@types/ejs": "^3.0.3",
     "@types/mongoose": "^5.10.5",
