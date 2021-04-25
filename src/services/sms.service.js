@@ -1,1 +1,0 @@
-export const sendSMS = () => true

@@ -1,0 +1,1 @@
+exports.sendSms = () => true

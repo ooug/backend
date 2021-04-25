@@ -1,6 +1,0 @@
-export * from './account.controller.js'
-export * from './activities.controller.js'
-export * from './app.controller.js'
-export * from './upcoming-event.controller.js'
-export * from './auth.controller.js'
-export * from './blog.controller.js'
