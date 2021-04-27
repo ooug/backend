@@ -1,7 +1,7 @@
 # Backend
 
 OOUG backend using javascript and express with mongodb 
-Hosted on Google Cloud Platform through App Engine 
+Hosted on Google Cloud Platform through App Engine.
 
 # Setup
 
