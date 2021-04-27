@@ -21,7 +21,7 @@ const transporter = nodemailer.createTransport({
  * @param {{path:string}[]} attachments
  * @returns {Promise<*>}
  */
-const sendMail = (to, subject, text = '', html = '', attachments = []) => {
+const sendMail = (to, subject, text = '', template = '', attachments = []) => {
   return new Promise((resolve, reject) => {
     transporter
       .sendMail({
@@ -31,7 +31,7 @@ const sendMail = (to, subject, text = '', html = '', attachments = []) => {
         to, // list of receivers
         subject, // Subject line
         text, // plain text body
-        html,
+        html: template,
         attachments
       })
       .then((data) => {
