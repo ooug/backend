@@ -3,5 +3,13 @@ const app = require('./app.model')
 const blog = require('./blog.model')
 const upcomingEvent = require('./upcoming-event.model')
 const user = require('./user.model')
+const gallery = require('./gallery.model')
 
-module.exports = { ...activities, ...app, ...blog, ...upcomingEvent, ...user }
+module.exports = {
+  ...activities,
+  ...app,
+  ...blog,
+  ...upcomingEvent,
+  ...user,
+  ...gallery
+}

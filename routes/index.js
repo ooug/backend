@@ -4,6 +4,7 @@ const appRoutes = require('./app.routes.js')
 const upcomingEventRoutes = require('./upcoming-event.routes')
 const authRoutes = require('./auth.routes')
 const blogRoutes = require('./blog.routes')
+const galleryRoutes = require('./gallery.route')
 
 // Controller
 const { user } = require('../controllers')
@@ -41,6 +42,9 @@ $.use('/auth', authRoutes)
 
 // blog routes
 $.use('/blog', blogRoutes)
+
+// gallery routes
+$.use('/gallery', galleryRoutes)
 
 // test route for passport
 $.get(

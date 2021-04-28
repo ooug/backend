@@ -4,6 +4,7 @@ const app = require('./app.controller')
 const upcomingEvent = require('./upcoming-event.controller')
 const auth = require('./auth.controller')
 const blog = require('./blog.controller')
+const gallery = require('./gallery.controller')
 
 module.exports = {
   ...account,
@@ -11,5 +12,6 @@ module.exports = {
   ...app,
   ...upcomingEvent,
   ...auth,
-  ...blog
+  ...blog,
+  ...gallery
 }
