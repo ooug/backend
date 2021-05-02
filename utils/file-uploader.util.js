@@ -43,4 +43,30 @@ const uploadFile = (file) => {
   })
 }
 
-module.exports = { uploadFile }
+const deleteFile = async (publicUrl) => {
+  return new Promise((resolve, reject) => {
+    if (publicUrl) {
+      const fileName =
+        publicUrl.split(`https://storage.googleapis.com/${bucket.name}/`)[1] ||
+        null
+      console.log(fileName)
+      if (fileName) {
+        const file = bucket.file(fileName)
+        file
+          .delete()
+          .then(() => {
+            resolve('File Deleted')
+          })
+          .catch((error) => {
+            reject(error)
+          })
+      } else {
+        reject(new Error('File Not Found On Cloud Storage'))
+      }
+    } else {
+      reject(new Error("Can't find public URL"))
+    }
+  })
+}
+
+module.exports = { uploadFile, deleteFile }

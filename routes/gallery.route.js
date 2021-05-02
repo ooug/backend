@@ -1,4 +1,8 @@
-const { getGalleryItems } = require('../controllers/gallery.controller')
+const {
+  getGalleryItems,
+  addGalleryItems,
+  deleteGalleryItems
+} = require('../controllers/gallery.controller')
 const e = require('express')
 
 /**
@@ -13,5 +17,9 @@ const options = {
 const $ = e.Router(options)
 
 $.get('/get', getGalleryItems)
+
+$.post('/add', addGalleryItems)
+
+$.delete('/delete/:id', deleteGalleryItems)
 
 module.exports = $
