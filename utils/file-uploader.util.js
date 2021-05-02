@@ -1,7 +1,7 @@
 const { Storage } = require('@google-cloud/storage')
 
 const storage = new Storage()
-const bucket = storage.bucket('gs://test-d02ef.appspot.com')
+const bucket = storage.bucket('gs://test-d02ef.appspot.com') // TODO: check for bucket name
 
 /**
  * uploadFile
