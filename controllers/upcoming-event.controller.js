@@ -39,9 +39,23 @@ exports.getAllUpcomingEvent = async (req, res) => {
   UpcomingEventModel.find()
     .select('-Registrations')
     .then((events) => {
+      const filteredEvents = events.filter((e) => {
+        const eventDate = Date.parse(
+          new Date(
+            // @ts-ignore
+            `${e.date.day} ${e.date.month}, ${e.date.year} ${e.time}`
+          ).toString()
+        )
+        const dateNow = Date.parse(new Date().toString())
+        if (dateNow > eventDate) {
+          return null
+        }
+        return e
+      })
+      console.log(filteredEvents)
       res.send({
         status: true,
-        data: events,
+        data: filteredEvents,
         path: req.path,
         timestamp: Math.trunc(Date.now() / 1000)
       })
