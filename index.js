@@ -41,19 +41,15 @@ $.use(textContentTypeMiddleware)
 // routing
 $.get('/', async (req, res) => {
   res.status(200).send({
-    status: true,
-    data: 'thank you sir',
-    path: req.path,
-    timestamp: Math.trunc(Date.now() / 1000)
+    message: 'thank you sir',
+    data: { path: req.path, timestamp: Math.trunc(Date.now() / 1000) }
   })
 })
 
 $.all('/ping', async (req, res) => {
   res.status(200).send({
-    status: true,
-    data: 'pong',
-    path: req.path,
-    timestamp: Math.trunc(Date.now() / 1000)
+    message: 'pong',
+    data: { path: req.path, timestamp: Math.trunc(Date.now() / 1000) }
   })
 })
 
