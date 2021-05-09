@@ -33,7 +33,6 @@ const uploadFile = (file) => {
     blobStream.on('finish', () => {
       fileUpload.makePublic().then(() => {
         const url = `https://storage.googleapis.com/${bucket.name}/${fileUpload.name}`
-        console.log(url)
         resolve(url)
       })
       // The public URL can be used to directly access the file via HTTP.

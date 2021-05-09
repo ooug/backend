@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const galleryModel = new mongoose.Schema({
-  slider: [
+  sliders: [
     {
       image: { type: String, required: true },
       title: { type: String, required: true },

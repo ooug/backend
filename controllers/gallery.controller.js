@@ -18,7 +18,12 @@ exports.getGalleryItems = async (_req, res) => {
     const gallery = await Gallery.find()
     if (gallery.length === 0) {
       // Gallery not found in DB!
-      res.status(StatusCodes.NOT_FOUND).json({ message: 'gallery not found' })
+      const newGallery = new Gallery({
+        sliders: [],
+        images: []
+      })
+      await newGallery.save()
+      res.status(StatusCodes.OK).json({ gallery: newGallery })
     } else {
       // Gallery found in DB
       res.status(StatusCodes.OK).json({ gallery: gallery[0] })
@@ -38,7 +43,7 @@ exports.getGalleryItems = async (_req, res) => {
  */
 exports.addGalleryItems = async (req, res, _next) => {
   const schema = joi.object({
-    image: joi.string().required(),
+    image: joi.object().required(),
     description: joi.string().required(),
     title: joi.string().optional().default(null),
     type: joi.string().required().allow('image-item', 'slider-item')
@@ -61,7 +66,7 @@ exports.addGalleryItems = async (req, res, _next) => {
     const imageUrl = await uploadFile(payload.image)
 
     if (payload.type === 'image-item') {
-      gallery.updateOne({
+      await gallery.updateOne({
         images: [
           ...gallery.get('images'),
           {
@@ -73,7 +78,7 @@ exports.addGalleryItems = async (req, res, _next) => {
     }
 
     if (payload.type === 'slider-item') {
-      gallery.updateOne({
+      await gallery.updateOne({
         sliders: [
           ...gallery.get('sliders'),
           {
@@ -94,60 +99,51 @@ exports.addGalleryItems = async (req, res, _next) => {
   }
 }
 
-exports.deleteGalleryItems = async (req, res) => {
+/**
+ * delete gallery items
+ * @function
+ * @name deleteGalleryItems
+ * @param {Request} req
+ * @param {Response} res
+ * @param {NextFunction} _next
+ */
+exports.deleteGalleryItems = async (req, res, _next) => {
   const gallery = await Gallery.findOne({})
   let publicUrl = null
-  if (req.query.type === 'image-item') {
-    // @ts-ignore
-    gallery.images = gallery.images.filter((e) => {
-      if (String(e._id) !== req.params.id) {
-        return e
-      }
-      publicUrl = e.image
-      return null
-    })
-  } else if (req.query.type === 'slider-item') {
-    // @ts-ignore
-    gallery.slider = gallery.slider.filter((e) => {
-      if (String(e._id) !== req.params.id) {
-        return e
-      }
-      publicUrl = e.image
-      return null
-    })
-  } else {
-    return res.status(500).json({
-      status: 'error',
-      message: 'Invalid type'
-    })
-  }
-  deleteFile(publicUrl)
-    .then((data) => {
-      console.log(data)
-      // @ts-ignore
-      gallery
-        .save()
-        .then(() => {
-          return res.status(200).json({
-            status: 'ok',
-            message: 'gallery item deleted',
-            gallery
-          })
-        })
-        .catch((error) => {
-          return res.status(500).json({
-            status: 'error',
-            message: 'Error while updating DB',
-            error
-          })
-        })
-    })
-    .catch((error) => {
-      console.log(error)
-      return res.status(502).json({
-        status: 'error',
-        message: 'Unable to delete',
+  if (gallery) {
+    if (req.query.type === 'image-item') {
+      gallery.images = gallery.images.filter((e) => {
+        if (String(e._id) !== req.params.id) {
+          return e
+        }
+        publicUrl = e.image
+        return null
+      })
+    } else if (req.query.type === 'slider-item') {
+      gallery.sliders = gallery.sliders.filter((e) => {
+        if (String(e._id) !== req.params.id) {
+          return e
+        }
+        publicUrl = e.image
+        return null
+      })
+    } else {
+      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        message: 'Invalid type'
+      })
+    }
+    try {
+      await deleteFile(publicUrl)
+      await gallery.save()
+      return res.status(StatusCodes.OK).json({
+        message: 'gallery item deleted',
+        gallery
+      })
+    } catch (error) {
+      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        message: 'Error while deleting gallery item',
         error
       })
-    })
+    }
+  }
 }

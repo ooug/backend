@@ -16,10 +16,10 @@ const options = {
 
 const $ = e.Router(options)
 
-$.get('/get', getGalleryItems)
+$.get('/', getGalleryItems)
 
-$.post('/add', addGalleryItems)
+$.post('/', addGalleryItems)
 
-$.delete('/delete/:id', deleteGalleryItems)
+$.delete('/:id', deleteGalleryItems)
 
 module.exports = $
