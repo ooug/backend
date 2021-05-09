@@ -6,7 +6,8 @@ const {
   getOneUpcomingEvent,
   getRegistrationsOfEvent,
   registerForEvent,
-  updateOneUpcomingEvent
+  updateOneUpcomingEvent,
+  getAllEventForAdmin
 } = require('../controllers')
 
 /**
@@ -34,5 +35,7 @@ $.post('/register', registerForEvent)
 $.get('/registrations/:id', getRegistrationsOfEvent)
 // update event
 $.post('/update-one', updateOneUpcomingEvent)
+// get all event for admin
+$.get('/get-events-admin', getAllEventForAdmin)
 
 module.exports = $
