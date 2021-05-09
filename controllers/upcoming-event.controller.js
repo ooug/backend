@@ -37,7 +37,7 @@ exports.addUpcomingEvent = async (req, res) => {
  */
 exports.getAllUpcomingEvent = async (req, res) => {
   UpcomingEventModel.find()
-    .select('-registrations')
+    .select('-Registrations')
     .then((events) => {
       res.send({
         status: true,
@@ -64,7 +64,7 @@ exports.getAllUpcomingEvent = async (req, res) => {
  */
 exports.getOneUpcomingEvent = async (req, res) => {
   UpcomingEventModel.findById(req.params.id)
-    .select('-registrations')
+    .select('-Registrations')
     .then((event) => {
       if (event) {
         res.send({
@@ -229,7 +229,7 @@ exports.getRegistrationsOfEvent = async (req, res) => {
             timestamp: Math.trunc(Date.now() / 1000)
           })
         }
-        if (event.registrations.length === 0) {
+        if (event.Registrations.length === 0) {
           res.send({
             status: false,
             data: 'NO_REGISTRATIONS_FOUND',
@@ -239,7 +239,7 @@ exports.getRegistrationsOfEvent = async (req, res) => {
         } else {
           res.send({
             status: true,
-            data: event.registrations,
+            data: event.Registrations,
             path: req.path,
             timestamp: Math.trunc(Date.now() / 1000)
           })
