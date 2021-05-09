@@ -1,76 +1,96 @@
+// eslint-disable-next-line no-unused-vars
+const { Request, Response, NextFunction } = require('express')
+const joi = require('joi')
+const { StatusCodes } = require('http-status-codes')
+
 const { GalleryModel: Gallery } = require('../models/gallery.model')
 const { uploadFile, deleteFile } = require('../utils/file-uploader.util')
 
-const dummyGalleryData = {
-  slider: [],
-  images: []
-}
-
-exports.getGalleryItems = async (req, res) => {
+/**
+ * get Gallery Items
+ * @function
+ * @name getGalleryItems
+ * @param {Request} _req
+ * @param {Response} res
+ */
+exports.getGalleryItems = async (_req, res) => {
   try {
     const gallery = await Gallery.find()
     if (gallery.length === 0) {
-      console.log('Gallery Not Found in DB! Saving dummy data...')
-      const newGallery = new Gallery(dummyGalleryData)
-      await newGallery.save()
-      res.status(200).json({ gallery: newGallery })
+      // Gallery not found in DB!
+      res.status(StatusCodes.NOT_FOUND).json({ message: 'gallery not found' })
     } else {
-      console.log('Gallery Found In DB')
-      res.status(200).json({ gallery: gallery[0] })
+      // Gallery found in DB
+      res.status(StatusCodes.OK).json({ gallery: gallery[0] })
     }
   } catch (error) {
-    res.status(500).json({ error })
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error })
   }
 }
 
-exports.addGalleryItems = async (req, res) => {
-  const gallery = await Gallery.findOne({})
-  if (req.body.image) {
-    uploadFile(req.body.image)
-      .then((imageUrl) => {
-        if (req.body.type === 'image-item') {
-          // @ts-ignore
-          gallery.images.push({
+/**
+ * add Gallery Items
+ * @function
+ * @name addGalleryItems
+ * @param {Request} req
+ * @param {Response} res
+ * @param {NextFunction} _next
+ */
+exports.addGalleryItems = async (req, res, _next) => {
+  const schema = joi.object({
+    image: joi.string().required(),
+    description: joi.string().required(),
+    title: joi.string().optional().default(null),
+    type: joi.string().required().allow('image-item', 'slider-item')
+  })
+  const { value: payload, error } = schema.validate(req.body)
+  if (error) {
+    return res
+      .status(StatusCodes.PRECONDITION_FAILED)
+      .json({ message: error.message })
+  }
+  try {
+    const gallery = await Gallery.findOne({})
+
+    if (!gallery) {
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ message: 'gallery not found' })
+    }
+
+    const imageUrl = await uploadFile(payload.image)
+
+    if (payload.type === 'image-item') {
+      gallery.updateOne({
+        images: [
+          ...gallery.get('images'),
+          {
             image: imageUrl,
-            description: req.body.description
-          })
-        } else if (req.body.type === 'slider-item') {
-          // @ts-ignore
-          gallery.slider.push({
+            description: payload.description
+          }
+        ]
+      })
+    }
+
+    if (payload.type === 'slider-item') {
+      gallery.updateOne({
+        sliders: [
+          ...gallery.get('sliders'),
+          {
             image: imageUrl,
-            description: req.body.description,
-            title: req.body.title
-          })
-        } else {
-          return res.status(500).json({
-            status: 'error',
-            message: 'Invalid type'
-          })
-        }
-        // @ts-ignore
-        gallery
-          .save()
-          .then(() => {
-            return res.status(200).json({
-              status: 'ok',
-              message: 'gallery item added'
-            })
-          })
-          .catch((error) => {
-            return res.status(500).json({
-              status: 'error',
-              message: 'Error while updating DB',
-              error
-            })
-          })
+            description: payload.description,
+            title: payload.title
+          }
+        ]
       })
-      .catch((error) => {
-        return res.status(500).json({
-          status: 'error',
-          message: 'Error while uploading image to bucket',
-          error
-        })
-      })
+    }
+
+    res.status(StatusCodes.CREATED).json({ message: 'gallery item added' })
+  } catch (error) {
+    console.error('addGalleryItems:-', error)
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      message: 'Error while uploading image to bucket'
+    })
   }
 }
 
