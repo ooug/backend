@@ -22,12 +22,16 @@
   },
   "nodemonConfig": {
     "watch": [
-      "/*"
+      "./*"
     ],
-    "execMap": {
-      "ts": "ts-node"
-    },
-    "delay": 500
+    "ignore": [
+      "node_modules/*",
+      "test/*",
+      "test/*",
+      "scripts/*",
+      "docs/*"
+    ],
+    "delay": 1000
   },
   "dependencies": {
     "@google-cloud/storage": "^5.8.4",
