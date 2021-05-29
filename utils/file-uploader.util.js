@@ -1,7 +1,7 @@
 const { Storage } = require('@google-cloud/storage')
 
 const storage = new Storage()
-const bucket = storage.bucket('gs://test-d02ef.appspot.com')
+const bucket = storage.bucket('gs://test-d02ef.appspot.com') // TODO: check for bucket name
 
 /**
  * uploadFile
@@ -33,7 +33,6 @@ const uploadFile = (file) => {
     blobStream.on('finish', () => {
       fileUpload.makePublic().then(() => {
         const url = `https://storage.googleapis.com/${bucket.name}/${fileUpload.name}`
-        console.log(url)
         resolve(url)
       })
       // The public URL can be used to directly access the file via HTTP.
@@ -43,4 +42,30 @@ const uploadFile = (file) => {
   })
 }
 
-module.exports = { uploadFile }
+const deleteFile = async (publicUrl) => {
+  return new Promise((resolve, reject) => {
+    if (publicUrl) {
+      const fileName =
+        publicUrl.split(`https://storage.googleapis.com/${bucket.name}/`)[1] ||
+        null
+      console.log(fileName)
+      if (fileName) {
+        const file = bucket.file(fileName)
+        file
+          .delete()
+          .then(() => {
+            resolve('File Deleted')
+          })
+          .catch((error) => {
+            reject(error)
+          })
+      } else {
+        reject(new Error('File Not Found On Cloud Storage'))
+      }
+    } else {
+      reject(new Error("Can't find public URL"))
+    }
+  })
+}
+
+module.exports = { uploadFile, deleteFile }
