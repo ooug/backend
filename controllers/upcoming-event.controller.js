@@ -36,25 +36,49 @@ exports.addUpcomingEvent = async (req, res) => {
  * @param {e.Response} res
  */
 exports.getAllUpcomingEvent = async (req, res) => {
-  UpcomingEventModel.find()
-    .select('-Registrations')
-    .then((events) => {
-      res.send({
-        status: true,
-        data: events,
-        path: req.path,
-        timestamp: Math.trunc(Date.now() / 1000)
-      })
+  try {
+    const events = await UpcomingEventModel.find().select('-registrations')
+    const filteredEvents = events.filter((e) => {
+      const eventDate = Date.parse(
+        new Date(
+          // @ts-ignore
+          `${e.date.day} ${e.date.month}, ${e.date.year} ${e.time}`
+        ).toString()
+      )
+      const dateNow = Date.parse(new Date().toString())
+      if (dateNow > eventDate) {
+        return null
+      }
+      return e
     })
-    .catch((err) => {
-      if (err) throw err
-      res.send({
-        status: false,
-        data: 'SOMETHING_WENT_WRONG',
-        path: req.path,
-        timestamp: Math.trunc(Date.now() / 1000)
-      })
+    res.send({
+      data: filteredEvents
     })
+  } catch (err) {
+    if (err) throw err
+    res.send({
+      message: 'SOMETHING_WENT_WRONG'
+    })
+  }
+}
+
+/**
+ * get all event for admin
+ * @param {e.Request} req
+ * @param {e.Response} res
+ */
+exports.getAllEventForAdmin = async (req, res) => {
+  try {
+    const events = await UpcomingEventModel.find().select('-registrations')
+    res.send({
+      data: events
+    })
+  } catch (err) {
+    if (err) throw err
+    res.send({
+      message: 'SOMETHING_WENT_WRONG'
+    })
+  }
 }
 
 /**
